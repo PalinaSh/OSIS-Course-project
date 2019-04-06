@@ -81,7 +81,7 @@ namespace CommandInterpreter
             catch (OptionException e)
             {
                 Console.WriteLine(e.Message);
-                Console.WriteLine("Try --help for mre information");
+                Console.WriteLine("Try --help for more information");
                 return;
             }
 
@@ -157,19 +157,29 @@ namespace CommandInterpreter
         private void ParseFileCompare(string[] args)
         {
             string path1 = GetPath(new string[] { args[0] }), path2 = GetPath(new string[] { args[1] });
+            Dictionary<string, long> options = new Dictionary<string, long>() { { "a", 0 }, { "l", 0 }, { "n", -1 }, { "c", 0 }, { "d", 0 } };
 
-            Dictionary<string, long> options = new Dictionary<string, long>() { { "a", 0 }, { "l", 0 }, { "n", -1 }, { "c", 0 } };
             var p = new OptionSet()
             {
                 { "a|ascii", v => options["a"] = v != null ? 1 : 0 },
                 { "l|lines", v => options["l"] = v != null ? 1 : 0 },
                 { "n|number=", v => options["n"] = long.Parse(v) },
-                { "c|case", v => options["c"] = v != null ? 1 : 0 }
+                { "c|case", v => options["c"] = v != null ? 1 : 0 },
+                { "d|decimal" , v => options["d"] = v != null ? 1 : 0},
             };
 
+            try
+            {
+                p.Parse(args);
+            }
+            catch (OptionException e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine("Try --help for more information");
+                return;
+            }
 
-
-            _commands.FileCompare(path1, path2);
+            _commands.FileCompare(path1, path2, options);
         }
 
         private void ParseTitle(string[] args)

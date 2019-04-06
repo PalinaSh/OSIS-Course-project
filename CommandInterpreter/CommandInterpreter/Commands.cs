@@ -63,6 +63,7 @@ namespace CommandInterpreter
             {
                 byte[] file1Bytes = ReadBytesFromFile(path1), file2Bytes = ReadBytesFromFile(path2);
                 string[] file1Lines = File.ReadAllLines(path1), file2Lines = File.ReadAllLines(path2);
+
                 if (options["a"] == 1)
                     for (int i = 0; i < file1Bytes.Length; ++i)
                         if (file1Bytes[i] != file2Bytes[i])
@@ -72,22 +73,50 @@ namespace CommandInterpreter
                             Console.WriteLine($"file2 = {(char)file2Bytes[i]}");
                             break;
                         }
-                if (options["l"] == 1)
-                {
-                }
-                if (options["n"] != -1)
-                {
 
-                }
-                if (options["c"] == 1)
+                if (options["d"] == 1)
                     for (int i = 0; i < file1Bytes.Length; ++i)
-                        if (((char)file1Bytes[i]).ToString().ToLower() != ((char)file2Bytes[i]).ToString().ToLower())
+                        if (file1Bytes[i] != file2Bytes[i] && options["c"] != 1)
                         {
                             Console.WriteLine($"Compare error at OFFSET {i}");
                             Console.WriteLine($"file1 = {file1Bytes[i]}");
                             Console.WriteLine($"file2 = {file2Bytes[i]}");
                             break;
                         }
+
+                if (options["l"] == 1)
+                    for (int i = 0; i < file1Lines.Length; ++i)
+                        if (!file1Lines[i].SequenceEqual(file2Lines[i]))
+                        {
+                            Console.WriteLine($"Compare error at LINE {i+1}");
+                            break;
+                        }
+
+                if (options["n"] != -1)
+                    for (int i = 0; i < options["n"]; ++i)
+                        if (!file1Lines[i].SequenceEqual(file2Lines[i]))
+                        {
+                            Console.WriteLine($"Compare error at LINE {i+1}");
+                            break;
+                        }
+
+                if (options["a"] != 1)
+                    for (int i = 0; i < file1Bytes.Length; ++i)
+                        if (file1Bytes[i] != file2Bytes[i] && options["c"] != 1)
+                        {
+                            Console.WriteLine($"Compare error at OFFSET {i}");
+                            Console.WriteLine($"file1 = {Convert.ToString(file1Bytes[i], 16)}");
+                            Console.WriteLine($"file2 = {Convert.ToString(file2Bytes[i], 16)}");
+                            break;
+                        }
+                        else if (((char)file1Bytes[i]).ToString().ToLower() != ((char)file2Bytes[i]).ToString().ToLower() && options["c"] == 1)
+                        {
+                            Console.WriteLine($"Compare error at OFFSET {i}");
+                            Console.WriteLine($"file1 = {Convert.ToString(file1Bytes[i], 16)}");
+                            Console.WriteLine($"file2 = {Convert.ToString(file2Bytes[i], 16)}");
+                            break;
+                        }
+
                 return;
             }
 
