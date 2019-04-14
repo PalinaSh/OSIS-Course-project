@@ -157,5 +157,26 @@ namespace CommandInterpreter
         {
             Console.Title = title;
         }
+
+        public void Copy(string path1, string path2)
+        {
+            if (!File.Exists(path1))
+            {
+                Console.WriteLine("The system cannot find the file specified.");
+                return;
+            }
+
+            if (!Directory.Exists(path2) || !File.Exists(path2))
+                File.Create(path2);
+
+            if (File.Exists(path2))
+            {
+                Console.Write($"Overwrite {path2}? (Yes/No/All): ");
+                switch (Console.ReadKey())
+                {
+                    case 'y':
+                }
+            }
+        }
     }
 }
