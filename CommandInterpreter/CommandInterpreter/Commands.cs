@@ -116,16 +116,13 @@ namespace CommandInterpreter
                             Console.WriteLine($"file2 = {Convert.ToString(file2Bytes[i], 16)}");
                             break;
                         }
-
-                return;
             }
 
             if (File.ReadLines(path1).SequenceEqual(File.ReadLines(path2)))
             {
-                Console.WriteLine("Files are equal.");
+                Console.WriteLine("Files compare OK.");
                 return;
             }
-            Console.WriteLine("Files are not equal");
         }
 
         private byte[] ReadBytesFromFile(string path)
@@ -166,17 +163,36 @@ namespace CommandInterpreter
                 return;
             }
 
-            if (!Directory.Exists(path2) || !File.Exists(path2))
-                File.Create(path2);
+            int successCopied = 0;
+
+            if (!Directory.Exists(path2) && !File.Exists(path2))
+                Console.WriteLine("Access is denied.");
+
+            if (Directory.Exists(path2))
+            {
+                path2 = Path.Combine(path2, Path.GetFileName(path1));
+                var file = File.Create(path2);
+                file.Close();
+            }
 
             if (File.Exists(path2))
             {
                 Console.Write($"Overwrite {path2}? (Yes/No/All): ");
-                switch (Console.ReadKey())
+                switch (Console.ReadLine().ToLower())
                 {
-                    case 'y':
+                    case "y":
+                    case "yes":
+                        File.Delete(path2);
+                        File.Copy(path1, path2);
+                        successCopied++;
+                        break;
+                    case "n":
+                    case "no":
+                        break;
                 }
             }
+
+            Console.WriteLine($"\t{successCopied} file(s) copied.");
         }
     }
 }

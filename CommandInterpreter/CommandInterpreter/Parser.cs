@@ -27,6 +27,9 @@ namespace CommandInterpreter
                 case "clear":
                     _commands.Clear();
                     break;
+                case "copy":
+                    ParseCopy(args);
+                    break;
                 case "fc":
                     ParseFileCompare(args);
                     break;
@@ -56,6 +59,8 @@ namespace CommandInterpreter
         private string GetPath(string[] args)
         {
             string path;
+            if (string.IsNullOrEmpty(args[0]))
+                return "";
             if (args.Length == 0)
                 path = _commands.CurrentFolder;
             else if (args[0].Contains(":") || args[0][0] == '\\')
@@ -156,8 +161,34 @@ namespace CommandInterpreter
 
         private void ParseFileCompare(string[] args)
         {
-            string path1 = GetPath(new string[] { args[0] }), path2 = GetPath(new string[] { args[1] });
+            string path1 = "", path2 = "";
             Dictionary<string, long> options = new Dictionary<string, long>() { { "a", 0 }, { "l", 0 }, { "n", -1 }, { "c", 0 }, { "d", 0 } };
+
+            if (args.Length == 0)
+            {
+                Console.Write("Name of first file to compare: ");
+                path1 = GetPath(new string[] { Console.ReadLine() });
+            }
+
+            if (args.Length == 1 || args.Length == 0)
+            {
+                Console.Write("Name of second file to compare: ");
+                path2 = GetPath(new string[] { Console.ReadLine() });
+                if (args.Length != 0)
+                    path1 = GetPath(new string[] { args[0] });
+            }
+
+            if (args.Length == 2)
+            {
+                path1 = GetPath(new string[] { args[0] });
+                path2 = GetPath(new string[] { args[1] });
+            }
+
+            if (args.Length > 2)
+            {
+                Console.WriteLine("Bad command line syntax");
+                return;
+            }
 
             var p = new OptionSet()
             {
@@ -186,6 +217,23 @@ namespace CommandInterpreter
         {
             var title = string.Join(" ", args);
             _commands.Title(title);
+        }
+
+        private void ParseCopy(string[] args)
+        {
+            if (args.Length == 1)
+            {
+                Console.WriteLine("The file cannot be copied onto itself.\n\t0 file(s) copied.");
+                return;
+            }
+
+            if (args.Length > 2 || args.Length < 1)
+            {
+                Console.WriteLine("The syntax of the command is incorrect.");
+                return;
+            }
+
+            _commands.Copy(GetPath(new string[] {args[0]}), GetPath(new string[] {args[1]}));
         }
     }
 }
