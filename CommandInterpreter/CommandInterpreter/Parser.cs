@@ -42,6 +42,9 @@ namespace CommandInterpreter
                 case "goto":
                     ParseGoto(args);
                     break;
+                case "removedir":
+                    ParseRemoveDir(args);
+                    break;
                 case "title":
                     ParseTitle(args);
                     break;
@@ -242,19 +245,46 @@ namespace CommandInterpreter
             _commands.Copy(GetPath(new string[] {args[0]}), GetPath(new string[] {args[1]}));
         }
 
-        private void ParseDelete(string[] args)
+        private List<string> ParseRemovePaths(string[] args)
         {
             if (args.Length == 0)
             {
                 Console.WriteLine("The syntax of the command is incorrect.");
-                return;
+                return null;
             }
 
             var paths = new List<string>();
-            foreach(var path in args)
+            foreach (var path in args)
                 paths.Add(GetPath(new string[] { path }));
 
+            return paths;
+        }
+
+        private void ParseDelete(string[] args)
+        {
+            var paths = ParseRemovePaths(args);
+
+            if (paths == null)
+                return;
+
             _commands.Delete(paths);
+        }
+
+        private void ParseRemoveDir(string[] args)
+        {
+            bool recursive = false;
+            var p = new OptionSet()
+            {
+                {"r|recursive", v => recursive = v != null },
+            };
+            p.Parse(new List<string> { args[0] });
+            
+            var paths = ParseRemovePaths(args);
+
+            if (paths == null)
+                return;
+
+            _commands.RemoveDir(paths, recursive);
         }
     }
 }

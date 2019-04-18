@@ -237,13 +237,35 @@ namespace CommandInterpreter
             foreach (var file in files)
                 File.Delete(file);
             foreach (var directory in directories)
-            {
-                DirectoryInfo dir = new DirectoryInfo(directory);
-                foreach (FileInfo fileInfo in dir.GetFiles())
-                    fileInfo.Delete();
-                foreach (DirectoryInfo directoryInfo in dir.GetDirectories())
-                    directoryInfo.Delete(true);
-                dir.Delete();
+                RemoveDirectory(directory);
+        }
+
+        private void RemoveDirectory(string directory)
+        {
+            DirectoryInfo dir = new DirectoryInfo(directory);
+            foreach (FileInfo fileInfo in dir.GetFiles())
+                fileInfo.Delete();
+            foreach (DirectoryInfo directoryInfo in dir.GetDirectories())
+                directoryInfo.Delete(true);
+            dir.Delete();
+        }
+
+        public void RemoveDir(List<string> paths, bool recursive)
+        {
+            foreach (var path in paths) {
+                if (!Directory.Exists(path))
+                {
+                    Console.WriteLine("The directory name is invalid.");
+                    continue;
+                }
+
+                if (Directory.GetFiles(path).Length + Directory.GetDirectories(path).Length > 0 && !recursive)
+                {
+                    Console.WriteLine("The directory is not empty.");
+                    continue;
+                }
+                else
+                    RemoveDirectory(path);
             }
         }
     }
