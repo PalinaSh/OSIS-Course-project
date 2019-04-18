@@ -30,6 +30,9 @@ namespace CommandInterpreter
                 case "copy":
                     ParseCopy(args);
                     break;
+                case "date":
+                    _commands.Date();
+                    break;
                 case "fc":
                     ParseFileCompare(args);
                     break;

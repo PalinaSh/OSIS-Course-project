@@ -177,22 +177,31 @@ namespace CommandInterpreter
 
             if (File.Exists(path2))
             {
-                Console.Write($"Overwrite {path2}? (Yes/No/All): ");
-                switch (Console.ReadLine().ToLower())
-                {
-                    case "y":
-                    case "yes":
-                        File.Delete(path2);
-                        File.Copy(path1, path2);
-                        successCopied++;
-                        break;
-                    case "n":
-                    case "no":
-                        break;
-                }
+                bool ok = true;
+                Console.Write($"Overwrite {path2}? (Yes/No): ");
+                while (ok)
+                    switch (Console.ReadLine().ToLower())
+                    {
+                        case "y":
+                        case "yes":
+                            File.Delete(path2);
+                            File.Copy(path1, path2);
+                            successCopied++;
+                            ok = false;
+                            break;
+                        case "n":
+                        case "no":
+                            ok = false;
+                            break;
+                    }
             }
 
             Console.WriteLine($"\t{successCopied} file(s) copied.");
+        }
+
+        public void Date()
+        {
+            Console.WriteLine($"The current date is: {DateTime.Now}");
         }
     }
 }
