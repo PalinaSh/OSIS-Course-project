@@ -33,6 +33,9 @@ namespace CommandInterpreter
                 case "date":
                     _commands.Date();
                     break;
+                case "delete":
+                    ParseDelete(args);
+                    break;
                 case "fc":
                     ParseFileCompare(args);
                     break;
@@ -237,6 +240,21 @@ namespace CommandInterpreter
             }
 
             _commands.Copy(GetPath(new string[] {args[0]}), GetPath(new string[] {args[1]}));
+        }
+
+        private void ParseDelete(string[] args)
+        {
+            if (args.Length == 0)
+            {
+                Console.WriteLine("The syntax of the command is incorrect.");
+                return;
+            }
+
+            var paths = new List<string>();
+            foreach(var path in args)
+                paths.Add(GetPath(new string[] { path }));
+
+            _commands.Delete(paths);
         }
     }
 }

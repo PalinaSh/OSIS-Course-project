@@ -203,5 +203,48 @@ namespace CommandInterpreter
         {
             Console.WriteLine($"The current date is: {DateTime.Now}");
         }
+
+        public void Delete(List<string> paths)
+        {
+            List<string> files = new List<string>();
+            List<string> directories = new List<string>();
+
+            foreach (var path in paths.Distinct())
+            {
+                if (Directory.Exists(path))
+                {
+                    Console.Write($"{path}\\*, Are you sure (Y/N)? ");
+                    switch (Console.ReadLine().ToLower())
+                    {
+                        case "y":
+                        case "yes":
+                            directories.Add(path);
+                            break;
+                        case "n":
+                        case "no":
+                            return;
+                    }
+                }
+                else if (File.Exists(path))
+                    files.Add(path);
+                else
+                {
+                    Console.WriteLine($"Could Not Find {path}");
+                    return;
+                }
+            }
+
+            foreach (var file in files)
+                File.Delete(file);
+            foreach (var directory in directories)
+            {
+                DirectoryInfo dir = new DirectoryInfo(directory);
+                foreach (FileInfo fileInfo in dir.GetFiles())
+                    fileInfo.Delete();
+                foreach (DirectoryInfo directoryInfo in dir.GetDirectories())
+                    directoryInfo.Delete(true);
+                dir.Delete();
+            }
+        }
     }
 }
