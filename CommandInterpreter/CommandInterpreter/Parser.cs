@@ -42,6 +42,9 @@ namespace CommandInterpreter
                 case "goto":
                     ParseGoto(args);
                     break;
+                case "move":
+                    ParseMove(args);
+                    break;
                 case "removedir":
                     ParseRemoveDir(args);
                     break;
@@ -285,6 +288,18 @@ namespace CommandInterpreter
                 return;
 
             _commands.RemoveDir(paths, recursive);
+        }
+
+        private void ParseMove(string[] args)
+        {
+            List<string> paths = new List<string>();
+            foreach (var path in args)
+                paths.Add(GetPath(new string[] { path }));
+
+            var srcPaths = paths.Take(paths.Count - 1);
+            var dstPath = paths.Last();
+
+            _commands.Move(srcPaths.ToArray(), dstPath);
         }
     }
 }

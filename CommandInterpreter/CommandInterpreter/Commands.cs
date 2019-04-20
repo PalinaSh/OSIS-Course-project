@@ -213,17 +213,21 @@ namespace CommandInterpreter
             {
                 if (Directory.Exists(path))
                 {
+                    bool ok = true;
                     Console.Write($"{path}\\*, Are you sure (Y/N)? ");
-                    switch (Console.ReadLine().ToLower())
-                    {
-                        case "y":
-                        case "yes":
-                            directories.Add(path);
-                            break;
-                        case "n":
-                        case "no":
-                            return;
-                    }
+                    while (ok)
+                        switch (Console.ReadLine().ToLower())
+                        {
+                            case "y":
+                            case "yes":
+                                directories.Add(path);
+                                ok = false;
+                                break;
+                            case "n":
+                            case "no":
+                                ok = false;
+                                return;
+                        }
                 }
                 else if (File.Exists(path))
                     files.Add(path);
@@ -267,6 +271,54 @@ namespace CommandInterpreter
                 else
                     RemoveDirectory(path);
             }
+        }
+
+        public void Move(string[] srcPaths, string dstPath)
+        {
+            foreach (var path in srcPaths)
+                if (!File.Exists(path))
+                {
+                    Console.WriteLine($"The system cannot find the file {path}");
+                    return;
+                }
+
+            int movedFiles = 0;
+            if (File.Exists(dstPath))
+            {
+                if (srcPaths.Length > 1)
+                {
+                    Console.WriteLine("The syntax of the command is incorrect.");
+                    return;
+                }
+
+                bool ok = true;
+                Console.Write($"Overwrite {dstPath} (Yes/No): ");
+                while (ok)
+                    switch (Console.ReadLine().ToLower())
+                    {
+                        case "y":
+                        case "yes":
+                            ok = false;
+                            File.Delete(dstPath);
+                            File.Move(srcPaths[0], dstPath);
+                            movedFiles++;
+                            break;
+                        case "n":
+                        case "no":
+                            ok = false;
+                            Console.WriteLine($"\t{movedFiles} file(s) moved.");
+                            return;
+                    }
+            }
+
+            foreach (var path in srcPaths)
+                if (Directory.Exists(dstPath))
+                {
+                    File.Move(path, Path.Combine(dstPath, Path.GetFileName(path)));
+                    movedFiles++;
+                }
+
+            Console.WriteLine($"\t{movedFiles} file(s) moved.");
         }
     }
 }
