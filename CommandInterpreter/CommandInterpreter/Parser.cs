@@ -54,6 +54,9 @@ namespace CommandInterpreter
                 case "show":
                     ParseShow(args);
                     break;
+                case "whoami":
+                    _commands.WhoAmI();
+                    break;
                 case "exit":
                     exit = true;
                     break;

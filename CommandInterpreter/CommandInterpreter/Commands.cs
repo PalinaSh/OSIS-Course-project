@@ -393,5 +393,10 @@ namespace CommandInterpreter
             }
             Console.WriteLine($"\t\t\t{filesCount} File(s)\n\t\t\t{directoriesCount} Dir(s)");
         }
+
+        public void WhoAmI()
+        {
+            Console.WriteLine(Environment.UserName);
+        }
     }
 }
