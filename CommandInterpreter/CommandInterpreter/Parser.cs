@@ -51,6 +51,9 @@ namespace CommandInterpreter
                 case "title":
                     ParseTitle(args);
                     break;
+                case "show":
+                    ParseShow(args);
+                    break;
                 case "exit":
                     exit = true;
                     break;
@@ -300,6 +303,32 @@ namespace CommandInterpreter
             var dstPath = paths.Last();
 
             _commands.Move(srcPaths.ToArray(), dstPath);
+        }
+
+        private void ParseShow(string[] args)
+        {
+            string path = "";
+            if (args.Length == 0)
+                path = _commands.CurrentFolder;
+            else
+                if (args[0].StartsWith("/") || args[0].StartsWith("-"))
+                    path = _commands.CurrentFolder;
+                else
+                    path = GetPath(new string[] { args[0] });
+
+            var options = new Dictionary<string, bool> { { "s", false }, { "c", false } };
+            var attributes = "";
+            var p = new OptionSet()
+            {
+                { "s|size", v => options["s"] = v != null },
+                { "c|create|created", v => options["c"] = v != null },
+                { "a|attributes=", v => attributes = v }
+            };
+            p.Parse(args);
+
+            List<string> attr = attributes.Split('&').ToList();
+
+            _commands.Show(path, options, attr);
         }
     }
 }

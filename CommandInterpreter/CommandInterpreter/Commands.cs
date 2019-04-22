@@ -320,5 +320,78 @@ namespace CommandInterpreter
 
             Console.WriteLine($"\t{movedFiles} file(s) moved.");
         }
+
+        public void Show(string path, Dictionary<string, bool> options, List<string> attributes)
+        {
+            if (!Directory.Exists(path))
+            {
+                Console.WriteLine($"Directory {path} not found.");
+                return;
+            }
+
+            Console.WriteLine($"\nDirectory of {path}\n");
+            List<string> points = new List<string>() { ".", ".." };
+
+            if (!string.IsNullOrEmpty(attributes[0]) || attributes.Contains("D"))
+                foreach (var point in points)
+                {
+                    if (options["c"])
+                        Console.Write("\t\t\t");
+                    Console.Write($"DIR\t");
+                    if (options["s"])
+                        Console.Write("\t");
+                    Console.WriteLine(point);
+                }
+
+            var files = Directory.GetFileSystemEntries(path);
+            int filesCount = 0, directoriesCount = 2;
+            foreach (var file in files)
+            {
+                FileInfo f = new FileInfo(file);
+                bool contin = true;
+
+                if (attributes.Contains("D"))
+                    contin &= !((f.Attributes & FileAttributes.Directory) == FileAttributes.Directory);
+                if (attributes.Contains("H"))
+                    contin &= !((f.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden);
+                if (attributes.Contains("R"))
+                    contin &= !((f.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly);
+                if (attributes.Contains("S"))
+                    contin &= !((f.Attributes & FileAttributes.System) == FileAttributes.System);
+
+                if (contin && !string.IsNullOrEmpty(attributes[0]))
+                    continue;
+
+                if (Directory.Exists(file))
+                {
+                    DirectoryInfo d = new DirectoryInfo(file);
+
+                    if (options["c"])
+                        Console.Write($"{d.CreationTime}\t");
+
+                    Console.Write($"DIR\t");
+
+                    if (options["s"])
+                        Console.Write($"\t");
+
+                    Console.WriteLine($"{Path.GetFileName(file)}");
+                    directoriesCount++;
+                }
+                else
+                {
+                    if (options["c"])
+                        Console.Write($"{f.CreationTime}\t");
+
+                    Console.Write($"\t");
+
+                    if (options["s"])
+                        Console.Write($"{f.Length}\t");
+                    
+                    Console.WriteLine($"{Path.GetFileName(file)}");
+                    filesCount++;
+                }
+            }
+            Console.WriteLine($"\t\t\t{filesCount} File(s)\n\t\t\t{directoriesCount} Dir(s)");
+        }
     }
 }
