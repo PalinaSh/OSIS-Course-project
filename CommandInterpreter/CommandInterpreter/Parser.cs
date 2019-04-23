@@ -33,6 +33,9 @@ namespace CommandInterpreter
                 case "create":
                     ParseCreate(args);
                     break;
+                case "createdir":
+                    ParseCreateDir(args);
+                    break;
                 case "date":
                     _commands.Date();
                     break;
@@ -350,6 +353,18 @@ namespace CommandInterpreter
                 paths.Add(GetPath(new string[] { arg }));
 
             _commands.Create(paths.ToArray());
+        }
+
+        private void ParseCreateDir(string[] args)
+        {
+            if (args.Length == 0)
+                Console.WriteLine("The syntax of the command is incorrect.");
+
+            var paths = new List<string>();
+            foreach (var arg in args)
+                paths.Add(GetPath(new string[] { arg }));
+
+            _commands.CreateDir(paths.ToArray());
         }
     }
 }

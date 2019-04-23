@@ -413,5 +413,13 @@ namespace CommandInterpreter
                 }
             }
         }
+
+        public void CreateDir(string[] paths)
+        {
+            foreach(var path in paths)
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
     }
 }
