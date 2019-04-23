@@ -30,6 +30,9 @@ namespace CommandInterpreter
                 case "copy":
                     ParseCopy(args);
                     break;
+                case "create":
+                    ParseCreate(args);
+                    break;
                 case "date":
                     _commands.Date();
                     break;
@@ -298,6 +301,9 @@ namespace CommandInterpreter
 
         private void ParseMove(string[] args)
         {
+            if (args.Length != 2)
+                Console.WriteLine("The syntax of the command is incorrect.");
+
             List<string> paths = new List<string>();
             foreach (var path in args)
                 paths.Add(GetPath(new string[] { path }));
@@ -332,6 +338,18 @@ namespace CommandInterpreter
             List<string> attr = attributes.Split('&').ToList();
 
             _commands.Show(path, options, attr);
+        }
+
+        private void ParseCreate(string[] args)
+        {
+            if (args.Length == 0)
+                Console.WriteLine("The syntax of the command is incorrect.");
+
+            var paths = new List<string>();
+            foreach(var arg in args)
+                paths.Add(GetPath(new string[] { arg }));
+
+            _commands.Create(paths.ToArray());
         }
     }
 }

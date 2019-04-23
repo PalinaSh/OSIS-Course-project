@@ -398,5 +398,20 @@ namespace CommandInterpreter
         {
             Console.WriteLine(Environment.UserName);
         }
+
+        public void Create(string[] paths)
+        {
+            foreach(var path in paths)
+            {
+                try
+                {
+                    File.Create(path);
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine($"Didn't find part of the path {path}");
+                }
+            }
+        }
     }
 }
