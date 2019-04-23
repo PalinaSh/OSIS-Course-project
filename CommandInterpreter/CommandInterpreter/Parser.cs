@@ -392,7 +392,7 @@ namespace CommandInterpreter
             }
             catch (Exception e)
             {
-                Console.WriteLine($"{e.Message}");
+                Console.WriteLine($"Port is too big");
                 return;
             }
 
@@ -404,6 +404,17 @@ namespace CommandInterpreter
             if (remotePort == -1)
             {
                 Console.WriteLine("Remote port is required argument");
+                return;
+            }
+
+            if (localPort < 0 || localPort > 65535)
+            {
+                Console.WriteLine("Local port is incorrect");
+                return;
+            }
+            if (remotePort < 0 || remotePort > 65535)
+            {
+                Console.WriteLine("Remote port is incorrect");
                 return;
             }
 
