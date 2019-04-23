@@ -293,8 +293,12 @@ namespace CommandInterpreter
                 {"r|recursive", v => recursive = v != null },
             };
             p.Parse(new List<string> { args[0] });
-            
-            var paths = ParseRemovePaths(args);
+
+            var paths = new List<string>();
+            if (!recursive)
+                paths = ParseRemovePaths(args);
+            else
+                paths = ParseRemovePaths(args.Skip(1).Take(args.Length - 1).ToArray());
 
             if (paths == null)
                 return;
