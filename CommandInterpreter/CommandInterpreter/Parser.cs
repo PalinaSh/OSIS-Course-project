@@ -21,6 +21,9 @@ namespace CommandInterpreter
             bool exit = false;
             switch (command.ToLower().Trim())
             {
+                case "chat":
+                    ParseChat(args);
+                    break;
                 case "color":
                     ParseColor(args);
                     break;
@@ -369,6 +372,42 @@ namespace CommandInterpreter
                 paths.Add(GetPath(new string[] { arg }));
 
             _commands.CreateDir(paths.ToArray());
+        }
+
+        private void ParseChat(string[] args)
+        {
+            string name = Environment.UserName;
+            int localPort = -1, remotePort = -1;
+
+            var p = new OptionSet()
+            {
+                { "n|name=", v => name = v },
+                { "l|local|localport=", v => localPort = int.Parse(v) },
+                { "r|remote|remoteport=", v => remotePort = int.Parse(v) }
+            };
+
+            try
+            {
+                p.Parse(args);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"{e.Message}");
+                return;
+            }
+
+            if (localPort == -1)
+            {
+                Console.WriteLine("Local port is required argument");
+                return;
+            }
+            if (remotePort == -1)
+            {
+                Console.WriteLine("Remote port is required argument");
+                return;
+            }
+
+            _commands.Chat(name, localPort, remotePort);
         }
     }
 }

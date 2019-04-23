@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CommandInterpreter
@@ -420,6 +421,16 @@ namespace CommandInterpreter
             {
                 Directory.CreateDirectory(path);
             }
+        }
+
+        public void Chat(string name, int localPort, int remotePort)
+        {
+            var chat = new Chat(localPort, remotePort, name);
+
+            ThreadPool.QueueUserWorkItem(chat.ReceiveMessage);
+
+            chat.SendMessage();
+            chat.IsReceive = false;
         }
     }
 }
