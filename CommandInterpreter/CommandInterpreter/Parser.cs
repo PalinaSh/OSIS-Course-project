@@ -30,6 +30,9 @@ namespace CommandInterpreter
                 case "clear":
                     _commands.Clear();
                     break;
+                case "compact":
+                    ParseCompact(args);
+                    break;
                 case "copy":
                     ParseCopy(args);
                     break;
@@ -419,6 +422,29 @@ namespace CommandInterpreter
             }
 
             _commands.Chat(name, localPort, remotePort);
+        }
+
+        private void ParseCompact(string[] args)
+        {
+            if (args.Length == 0)
+            {
+                Console.WriteLine("The syntax of the command is incorrect.");
+                return;
+            }
+
+            if (args.Length == 1)
+            {
+                Console.WriteLine("Name of destination directory is required");
+                return;
+            }
+
+            var srcPaths = new List<string>();
+            foreach (var arg in args.Take(args.Length - 1))
+                srcPaths.Add(GetPath(new string[] { arg }));
+
+            var dstPath = GetPath(new string[] { args.Last() });
+
+            _commands.Compact(srcPaths.ToArray(), dstPath);
         }
     }
 }

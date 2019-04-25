@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.IO.Compression;
 
 namespace CommandInterpreter
 {
@@ -431,6 +432,57 @@ namespace CommandInterpreter
 
             chat.SendMessage();
             chat.IsReceive = false;
+        }
+
+        public void Compact(string[] paths, string dstPath)
+        {
+            foreach(var path in paths)
+                if (!File.Exists(path) && !Directory.Exists(path))
+                {
+                    Console.WriteLine($"File or directory {path} does not exists");
+                    return;
+                }
+
+            dstPath += (Path.GetExtension(dstPath) == ".zip") ? "" : ".zip";
+            
+            if (File.Exists(dstPath))
+            {
+                bool ok = true;
+                Console.WriteLine($"Overwrite {dstPath} (Yes/No): ");
+                while (ok)
+                    switch (Console.ReadLine().ToLower())
+                    {
+                        case "y":
+                        case "yes":
+                            ok = false;
+                            File.Delete(dstPath);
+                            break;
+                        case "n":
+                        case "no":
+                            return;
+                    }
+            }
+
+            Random rnd = new Random();
+            string newPath = Path.Combine(CurrentFolder, ((char)rnd.Next(97, 121)).ToString());
+            while (true)
+            {
+                if (Directory.Exists(newPath))
+                {
+                    newPath += (char)rnd.Next(97, 121);
+                    continue;
+                }
+
+                break;
+            }
+
+            Directory.CreateDirectory(newPath);
+            foreach(var path in paths.Distinct())
+                File.Copy(path, Path.Combine(newPath, Path.GetFileName(path)));
+
+            Directory.CreateDirectory(Path.GetDirectoryName(dstPath));
+            ZipFile.CreateFromDirectory(newPath, dstPath);
+            Directory.Delete(newPath, true);
         }
     }
 }
