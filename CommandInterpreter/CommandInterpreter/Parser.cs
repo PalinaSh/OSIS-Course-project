@@ -45,6 +45,9 @@ namespace CommandInterpreter
                 case "date":
                     _commands.Date();
                     break;
+                case "decompact":
+                    ParseDecompact(args);
+                    break;
                 case "delete":
                     ParseDelete(args);
                     break;
@@ -445,6 +448,26 @@ namespace CommandInterpreter
             var dstPath = GetPath(new string[] { args.Last() });
 
             _commands.Compact(srcPaths.ToArray(), dstPath);
+        }
+
+        private void ParseDecompact(string[] args)
+        {
+            if (args.Length == 0)
+            {
+                Console.WriteLine("The syntax of the command is incorrect.");
+                return;
+            }
+
+            if (args.Length == 1)
+            {
+                Console.WriteLine("Name of destination directory is required");
+                return;
+            }
+
+            var srcPath = GetPath(new string[] { args.First() });
+            var dstPath = GetPath(new string[] { args.Last() });
+
+            _commands.Decompact(srcPath, dstPath);
         }
     }
 }

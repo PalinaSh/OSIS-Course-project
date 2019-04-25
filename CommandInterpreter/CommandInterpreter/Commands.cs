@@ -484,5 +484,32 @@ namespace CommandInterpreter
             ZipFile.CreateFromDirectory(newPath, dstPath);
             Directory.Delete(newPath, true);
         }
+
+        public void Decompact(string srcFile, string dstDirectory)
+        {
+            if (!File.Exists(srcFile))
+            {
+                Console.WriteLine($"File {srcFile} does not exists");
+                return;
+            }
+
+            if (Path.GetExtension(srcFile) != ".zip")
+            {
+                Console.WriteLine($"{srcFile} is not archive");
+                return;
+            }
+
+            if (!Directory.Exists(dstDirectory))
+                Directory.CreateDirectory(dstDirectory);
+
+            try
+            {
+                ZipFile.ExtractToDirectory(srcFile, dstDirectory);
+            }
+            catch
+            {
+                Console.WriteLine("File yet exists in this directory");
+            }
+        }
     }
 }
