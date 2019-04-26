@@ -57,6 +57,9 @@ namespace CommandInterpreter
                 case "goto":
                     ParseGoto(args);
                     break;
+                case "help":
+                    ParseHelp(args);
+                    break;
                 case "move":
                     ParseMove(args);
                     break;
@@ -468,6 +471,23 @@ namespace CommandInterpreter
             var dstPath = GetPath(new string[] { args.Last() });
 
             _commands.Decompact(srcPath, dstPath);
+        }
+
+        private void ParseHelp(string[] args)
+        {
+            if (args.Length == 0)
+            {
+                Help.Helper();
+                return;
+            }
+
+            if (args.Length > 1)
+            {
+                Console.WriteLine("The syntax of the command is incorrect.");
+                return;
+            }
+
+            Help.HelperComands(args[0]);
         }
     }
 }
