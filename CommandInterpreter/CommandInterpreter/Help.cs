@@ -22,6 +22,7 @@ namespace CommandInterpreter
         {
             Console.WriteLine(GetCommandsDescription(new List<string> { command }));
             Console.WriteLine($"{GetSyntax(command)}\n");
+            Console.WriteLine($"{GetAttributes(command)}");
         }
 
         private static string GetCommandsDescription(List<string> commands, bool name = false)
@@ -150,11 +151,9 @@ namespace CommandInterpreter
             switch(command.ToLower().Trim())
             {
                 case "chat":
-                    return $"CHAT -l=localPort -r=remotePort [-n=name]";
+                    return $"CHAT [-l|local|localport]=localPort [-r|remote|remoteport]=remotePort [[-n|name]=name]";
                 case "color":
-                    return $"COLOR [-b=background] [-f=foreground]";
-                case "clear":
-                    return $"CLEAR";
+                    return $"COLOR [[-b|background]=background] [[-f|foreground]=foreground]";
                 case "compact":
                     return $"COMPACT filename [...] destinationDirectory";
                 case "copy":
@@ -170,7 +169,7 @@ namespace CommandInterpreter
                 case "delete":
                     return $"DELETE filename [...]";
                 case "fc":
-                    return $"FC [-a] [-l] [-n=number] [-c] [-d] filename1 filename2";
+                    return $"FC [-a|ascii] [-l|lines] [[-n|number]=number] [-c|case] [-d|decimal] filename1 filename2";
                 case "goto":
                     return $"GOTO directory";
                 case "help":
@@ -178,11 +177,11 @@ namespace CommandInterpreter
                 case "move":
                     return $"MOVE filename [...] dirname";
                 case "removedir":
-                    return $"REMOVEDIR [-r] directory";
+                    return $"REMOVEDIR [-r|recurseve] directory";
                 case "title":
                     return $"TITLE title";
                 case "show":
-                    return $"SHOW [-s] [-c] [-a=attributes[,]] [dirname]";
+                    return $"SHOW [-s|size] [-c|create|created] [[-a|attributes]=attributes[,]] [dirname]";
                 case "whoami":
                     return $"WHOAMI";
                 case "exit":
@@ -192,6 +191,80 @@ namespace CommandInterpreter
                     Console.WriteLine($"'{command}' is not recognized as an internal or external command, operable program or batch file.");
                     return "";
             }
+        }
+
+        private static string GetAttributes(string command)
+        {
+            StringBuilder sb = new StringBuilder();
+            switch (command.Trim().ToLower())
+            {
+                case "chat":
+                    sb.Append($"lacalport\tPort from which messages are sent\n");
+                    sb.Append($"remoteport\tPort on which messages come\n");
+                    sb.Append($"name\t\tYour name in the chat\n");
+                    break;
+                case "color":
+                    sb.Append($"background\tSpecifies color of console background\n");
+                    sb.Append($"foreground\tSpecifies color of console foreground\n");
+                    break;
+                case "compact":
+                    sb.Append($"filename\t\tPaths to files to be added to the archive\n");
+                    sb.Append($"destinationDirectory\tPath to the directory which will be the archive\n");
+                    break;
+                case "copy":
+                    sb.Append($"sourceFilename\t\tPath to file to be copied\n");
+                    sb.Append($"destinatioFilename\tPath to the new file\n");
+                    break;
+                case "create":
+                    sb.Append($"filename\tPaths to new files to be added\n");
+                    break;
+                case "createdir":
+                    sb.Append($"dirname\t\tPaths to directories to be added\n");
+                    break;
+                case "decompact":
+                    sb.Append($"sourceFilename\t\tPaths to .zip file to be extarct\n");
+                    sb.Append($"destinationDirname\tPath to the directory in which extract files\n");
+                    break;
+                case "delete":
+                    sb.Append($"filename\tPaths to files to be removed\n");
+                    break;
+                case "fc":
+                    sb.Append($"ascii\t\tDisplays differences in ASCII characters\n");
+                    sb.Append($"lines\t\tDisplays line numbers for differences\n");
+                    sb.Append($"number\t\tCompares only the first specified number of lines in each file\n");
+                    sb.Append($"case\t\tDisregards case of ASCII letters when comparing files\n");
+                    sb.Append($"decimal\t\tDisplays differences in decimal format\n");
+                    sb.Append($"filename1\tSpecifies location and name of first file to compare\n");
+                    sb.Append($"filename2\tSpecifies location and name of second file to compare\n");
+                    break;
+                case "goto":
+                    sb.Append($"directory\tCanges current directory\n");
+                    break;
+                case "help":
+                    sb.Append($"command\t\tDisplays help information on that command\n");
+                    break;
+                case "move":
+                    sb.Append($"filename\tPaths to files to be moved\n");
+                    sb.Append($"dirname\t\tPath to the directory in which move files\n");
+                    break;
+                case "removedir":
+                    sb.Append($"recursive\tRemoves all directories and files in the specified directory in addition to the directory itself\n");
+                    sb.Append($"directory\tPath to the directory\n");
+                    break;
+                case "title":
+                    sb.Append($"title\t\tSpecifies the title for the command prompt window\n");
+                    break;
+                case "show":
+                    sb.Append($"size\t\tDisplays files' sizes\n");
+                    sb.Append($"created\t\tDisplays date of file and directories created\n");
+                    sb.Append($"attributes\tDisplays files with specified attributes\n");
+                    sb.Append($"dirname\t\tPath to the directory\n");
+                    break;
+                default:
+                    return "";
+            }
+
+            return sb.ToString();
         }
     }
 }
