@@ -15,17 +15,18 @@ namespace CommandInterpreter
         public static void Helper()
         {
             Console.WriteLine("For more information on a specific command, type HELP command-name\n");
-            Console.WriteLine(GetCommandsDescription(_commands, true));
+            Console.WriteLine(GetCommandsSmallDescription(_commands, true));
         }
 
         public static void HelperComands(string command)
         {
-            Console.WriteLine(GetCommandsDescription(new List<string> { command }));
+            Console.WriteLine(GetCommandsSmallDescription(new List<string> { command }));
             Console.WriteLine($"{GetSyntax(command)}\n");
             Console.WriteLine($"{GetAttributes(command)}");
+            Console.Write($"{GetCommandDescription(command)}");
         }
 
-        private static string GetCommandsDescription(List<string> commands, bool name = false)
+        private static string GetCommandsSmallDescription(List<string> commands, bool name = false)
         {
             StringBuilder sb = new StringBuilder();
             if (commands.Contains("chat"))
@@ -187,9 +188,7 @@ namespace CommandInterpreter
                 case "exit":
                     return $"EXIT";
                 default:
-                    if (!string.IsNullOrEmpty(command))
-                    Console.WriteLine($"'{command}' is not recognized as an internal or external command, operable program or batch file.");
-                    return "";
+                    return (new StringBuilder()).ToString();
             }
         }
 
@@ -262,6 +261,67 @@ namespace CommandInterpreter
                     break;
                 default:
                     return "";
+            }
+
+            return sb.ToString();
+        }
+
+        private static string GetCommandDescription(string command)
+        {
+            StringBuilder sb = new StringBuilder();
+            switch (command.ToLower().Trim())
+            {
+                case "chat":
+                    sb.Append($"Local chat created using a UDP connection. Join yourself and call your friends.\n");
+                    break;
+                case "color":
+                    sb.Append($"Console support colors:\n");
+                    sb.Append($"\tblack\tblue\n");
+                    sb.Append($"\tgreen\tred\n");
+                    sb.Append($"\twhite\tyellow\n");
+                    break;
+                case "compact":
+                    sb.Append($"All parameters is required. For multiple files used syntax (file1 file2 file3)\n");
+                    break;
+                case "copy":
+                    sb.Append($"All parameters is required\n");
+                    break;
+                case "create":
+                    sb.Append($"All parameters is required. For multiple files used syntax (file1 file2 file3)\n");
+                    break;
+                case "createdir":
+                    sb.Append($"All parameters is required. For multiple directories used syntax (dir1 dir2 dir3)\n");
+                    break;
+                case "date":
+                    sb.Append($"Type DATE to display the current date.\n");
+                    break;
+                case "decompact":
+                    sb.Append($"All parameters is required. sourceFilename must ends with '.zip'\n");
+                    break;
+                case "delete":
+                    sb.Append($"All parameters is required. For multiple files used syntax (file1 file2 file3)\n");
+                    break;
+                case "fc":
+                    sb.Append($"To compare sets of files, use wildcards in filename1 and filename2 parameters. Files must be in text-format.\n");
+                    break;
+                case "goto":
+                    sb.Append($"Type GOTO without parameters to display the current drive and directory.\n");
+                    sb.Append($"Use the /D switch to change current drive in addition to changing current directory for a drive.\n");
+                    sb.Append($"   ..    Specifies that you want to change to the parent directory.\n");
+                    break;
+                case "move":
+                    sb.Append($"All parameters is required. For multiple files used syntax (file1 file2 file3)\n");
+                    break;
+                case "removedir":
+                    sb.Append($"If directory is not empty and you want to delete it use 'recursive'-deleting.\n");
+                    break;
+                case "show":
+                    sb.Append($"You can use attributes (attr1,attr2,attr3)\n");
+                    sb.Append($"\tD  Directories\n");
+                    sb.Append($"\tH  Hidden files and directories\n");
+                    sb.Append($"\tR  Readonly files and directories\n");
+                    sb.Append($"\tS  System files and directories\n");
+                    break;
             }
 
             return sb.ToString();
