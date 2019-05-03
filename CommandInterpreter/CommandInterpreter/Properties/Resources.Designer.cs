@@ -97,6 +97,15 @@ namespace CommandInterpreter.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Use the /D switch to change current drive in addition to changing current directory for a drive.
+        /// </summary>
+        internal static string ChangeDrive {
+            get {
+                return ResourceManager.GetString("ChangeDrive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Creates UDP-chat for your secure communication.
         /// </summary>
         internal static string Chat {
@@ -430,6 +439,15 @@ namespace CommandInterpreter.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Directories.
+        /// </summary>
+        internal static string Directories {
+            get {
+                return ResourceManager.GetString("Directories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Directory of.
         /// </summary>
         internal static string Directory {
@@ -583,7 +601,7 @@ namespace CommandInterpreter.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Type GOTO without parameters to display the current drive and directory.\nUse the /D switch to change current drive in addition to changing current directory for a drive.\n    ..    Specifies that you want to change to the parent directory..
+        ///   Ищет локализованную строку, похожую на Type GOTO without parameters to display the current drive and directory..
         /// </summary>
         internal static string GotoDescr {
             get {
@@ -615,6 +633,15 @@ namespace CommandInterpreter.Properties {
         internal static string HelpCommand {
             get {
                 return ResourceManager.GetString("HelpCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Hidden files and directories.
+        /// </summary>
+        internal static string Hidden {
+            get {
+                return ResourceManager.GetString("Hidden", resourceCulture);
             }
         }
         
@@ -781,6 +808,24 @@ namespace CommandInterpreter.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на     ..    Specifies that you want to change to the parent directory..
+        /// </summary>
+        internal static string Parrent {
+            get {
+                return ResourceManager.GetString("Parrent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Readonly files and directories.
+        /// </summary>
+        internal static string Readonly {
+            get {
+                return ResourceManager.GetString("Readonly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Removes a directory.
         /// </summary>
         internal static string Removedir {
@@ -871,7 +916,7 @@ namespace CommandInterpreter.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на You can use attributes (attr1,attr2,attr3)\n\tD  Directories\n\tH  Hidden files and directories\n\tR  Readonly files and directories\n\tS  System files and directories\n.
+        ///   Ищет локализованную строку, похожую на You can use attributes (attr1,attr2,attr3).
         /// </summary>
         internal static string ShowDescr {
             get {
@@ -903,6 +948,15 @@ namespace CommandInterpreter.Properties {
         internal static string Sure {
             get {
                 return ResourceManager.GetString("Sure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на System files and directories.
+        /// </summary>
+        internal static string System {
+            get {
+                return ResourceManager.GetString("System", resourceCulture);
             }
         }
         

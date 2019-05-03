@@ -400,18 +400,36 @@
     <value>To compare sets of files, use wildcards in filename1 and filename2 parameters. Files must be in text-format.</value>
   </data>
   <data name="GotoDescr" xml:space="preserve">
-    <value>Type GOTO without parameters to display the current drive and directory.\nUse the /D switch to change current drive in addition to changing current directory for a drive.\n    ..    Specifies that you want to change to the parent directory.</value>
+    <value>Type GOTO without parameters to display the current drive and directory.</value>
   </data>
   <data name="RemovedirDescr" xml:space="preserve">
     <value>If directory is not empty and you want to delete it use 'recursive'-deleting.</value>
   </data>
   <data name="ShowDescr" xml:space="preserve">
-    <value>You can use attributes (attr1,attr2,attr3)\n\tD  Directories\n\tH  Hidden files and directories\n\tR  Readonly files and directories\n\tS  System files and directories\n</value>
+    <value>You can use attributes (attr1,attr2,attr3)</value>
+  </data>
+  <data name="ChangeDrive" xml:space="preserve">
+    <value>Use the /D switch to change current drive in addition to changing current directory for a drive</value>
+  </data>
+  <data name="Directories" xml:space="preserve">
+    <value>Directories</value>
   </data>
   <data name="ForMoreInfo" xml:space="preserve">
     <value>For more information on a specific command, type HELP command-name</value>
   </data>
+  <data name="Hidden" xml:space="preserve">
+    <value>Hidden files and directories</value>
+  </data>
   <data name="Lang" xml:space="preserve">
     <value>Changes language of your console to Russian or English</value>
+  </data>
+  <data name="Parrent" xml:space="preserve">
+    <value>    ..    Specifies that you want to change to the parent directory.</value>
+  </data>
+  <data name="Readonly" xml:space="preserve">
+    <value>Readonly files and directories</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>System files and directories</value>
   </data>
 </root>

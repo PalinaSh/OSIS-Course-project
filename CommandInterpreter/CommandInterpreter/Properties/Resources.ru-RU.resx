@@ -400,18 +400,36 @@
     <value>Чтобы сравнить наборы файлов, используйте подстановочные знаки в параметрах filename1 и filename2. Файлы должны быть в текстовом формате.</value>
   </data>
   <data name="GotoDescr" xml:space="preserve">
-    <value>Введите GOTO без параметров для отображения текущего диска и каталога.\nИспользуйте ключ / D для изменения текущего диска в дополнение к изменению текущего каталога для диска.\n   ..   Указывает, что вы хотите перейти в родительский каталог.</value>
+    <value>Введите GOTO без параметров для отображения текущего диска и каталога.</value>
   </data>
   <data name="RemovedirDescr" xml:space="preserve">
     <value>Если каталог не пустой и вы хотите удалить его, используйте 'recursive'-рекурсивное удаление.</value>
   </data>
   <data name="ShowDescr" xml:space="preserve">
-    <value>Вы можете использовать атрибуты (attr1, attr2, attr3)\n\tD  Каталоги\n\tH  Скрытые файлы и каталоги\n\tR  Файлы и каталоги только для чтения\n\tS  Системные файлы и каталоги\n</value>
+    <value>Вы можете использовать атрибуты (attr1, attr2, attr3)</value>
+  </data>
+  <data name="ChangeDrive" xml:space="preserve">
+    <value>Используйте ключ / D для изменения текущего диска в дополнение к изменению текущего каталога для диска.</value>
+  </data>
+  <data name="Directories" xml:space="preserve">
+    <value>Каталоги</value>
   </data>
   <data name="ForMoreInfo" xml:space="preserve">
     <value>Для получения дополнительной информации о конкретной команде введите HELP &lt;имя_команды&gt;</value>
   </data>
+  <data name="Hidden" xml:space="preserve">
+    <value>Скрытые файлы и каталоги</value>
+  </data>
   <data name="Lang" xml:space="preserve">
     <value>Меняет язык вашей консоли на русский или английский</value>
+  </data>
+  <data name="Parrent" xml:space="preserve">
+    <value>    ..    Указывает, что вы хотите перейти в родительский каталог.</value>
+  </data>
+  <data name="Readonly" xml:space="preserve">
+    <value>Файлы и каталоги только для чтения</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>Системные файлы и каталоги</value>
   </data>
 </root>

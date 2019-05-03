@@ -518,6 +518,8 @@ namespace CommandInterpreter
                 System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
             else
                 System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("ru-RU");
+
+            Help.UpdateDictionary();
         }
     }
 }

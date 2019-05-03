@@ -6,151 +6,133 @@ using System.Threading.Tasks;
 
 namespace CommandInterpreter
 {
-    class Help
+    static class Help
     {
-        private static List<string> _commands = new List<string>() {"chat", "color", "copy", "clear", "compact", "create",
-            "createdir", "date", "exit", "decompact", "delete", "fc", "goto", "help", "move", "removedir", "title", "show",
-            "whoami", "lang"};
+        private static Dictionary<string, string> _commands = new Dictionary<string, string>
+        {
+            { "chat", Properties.Resources.Chat },
+            { "color" , Properties.Resources.Color},
+            { "copy",Properties.Resources.Copy },
+            { "clear", Properties.Resources.Clear },
+            { "compact" , Properties.Resources.Compact},
+            { "create", Properties.Resources.Create },
+            { "createdir", Properties.Resources.Createdir },
+            { "date", Properties.Resources.Date },
+            { "exit", Properties.Resources.Exit },
+            { "decompact", Properties.Resources.Decompact },
+            { "delete", Properties.Resources.Delete },
+            { "fc", Properties.Resources.Fc },
+            { "goto", Properties.Resources.Goto },
+            { "help", Properties.Resources.Help },
+            { "move", Properties.Resources.Move },
+            { "removedir", Properties.Resources.Removedir },
+            { "title", Properties.Resources.Title },
+            { "show", Properties.Resources.Show },
+            { "whoami", Properties.Resources.Whoami },
+            { "lang", Properties.Resources.Lang }
+        };
+
+        private static Dictionary<string, string> _commandsDescr = new Dictionary<string, string>
+        {
+            { "chat", $"{Properties.Resources.ChatDescr}\n" },
+            { "color", $"{Properties.Resources.ColorDescr}\n\tblack\tblue\n\tgreen\tred\n\twhite\tyellow\n"},
+            { "compact", $"{Properties.Resources.CompactDescr} (file1 file2 file3)\n" },
+            { "copy", $"{Properties.Resources.CopyDescr}\n" },
+            { "create", $"{Properties.Resources.CompactDescr} (file1 file2 file3)\n" },
+            { "createdir", $"{Properties.Resources.CompactDescr} (dir1 dir2 dir3)\n" },
+            { "date", $"{Properties.Resources.DateDescr}\n" },
+            { "decompact", $"{Properties.Resources.DecompactDescr}\n" },
+            { "delete", $"{Properties.Resources.CompactDescr} (file1 file2 file3)\n" },
+            { "fc", $"{Properties.Resources.FcDescr}\n" },
+            { "goto", $"{Properties.Resources.GotoDescr}\n{Properties.Resources.ChangeDrive}\n{Properties.Resources.Parrent}\n" },
+            { "move", $"{Properties.Resources.CompactDescr} (file1 file2 file3)\n" },
+            { "removedir", $"{Properties.Resources.RemovedirDescr}\n" },
+            { "show", $"{Properties.Resources.ShowDescr}\n\tD  {Properties.Resources.Directories}\n\tH  {Properties.Resources.Hidden}\n\tR  {Properties.Resources.Readonly}\n\tS  {Properties.Resources.System}\n" }
+        };
+
+        private static List<string> _commandsWithoutAttr = new List<string> { "clear", "date", "whoami", "lang", "exit" };
+        private static List<string> _bigCommands = new List<string> { "createdir", "decompact", "removedir" };
 
         public static void Helper()
         {
-            Console.WriteLine($"{Properties.Resources.ForMoreInfo}\n");
+            Console.WriteLine($"{Properties.Resources.ForMoreInfo}{Environment.NewLine}");
             Console.WriteLine(GetCommandsSmallDescription(_commands, true));
         }
 
         public static void HelperComands(string command)
         {
-            Console.WriteLine(GetCommandsSmallDescription(new List<string> { command }));
-            Console.WriteLine($"{GetSyntax(command)}\n");
-            Console.WriteLine($"{GetAttributes(command)}");
-            Console.Write($"{GetCommandDescription(command)}");
+            string str = string.Empty;
+
+            str += GetCommandsSmallDescription(_commands.Where(s => s.Key == command)
+                .ToDictionary(s => s.Key, s => s.Value)) + Environment.NewLine;
+            str += GetSyntax(command) + Environment.NewLine + 
+                (_commandsWithoutAttr.Contains(command) ? "" : Environment.NewLine);
+            str += GetAttributes(command) + Environment.NewLine;
+            str += GetCommandDescription(command);
+
+            Console.Write(str);
         }
 
-        private static string GetCommandsSmallDescription(List<string> commands, bool name = false)
+        public static void UpdateDictionary()
         {
-            StringBuilder sb = new StringBuilder();
-            if (commands.Contains("chat"))
+            _commands = new Dictionary<string, string>
+            {
+                { "chat", Properties.Resources.Chat },
+                { "color" , Properties.Resources.Color},
+                { "copy",Properties.Resources.Copy },
+                { "clear", Properties.Resources.Clear },
+                { "compact" , Properties.Resources.Compact},
+                { "create", Properties.Resources.Create },
+                { "createdir", Properties.Resources.Createdir },
+                { "date", Properties.Resources.Date },
+                { "exit", Properties.Resources.Exit },
+                { "decompact", Properties.Resources.Decompact },
+                { "delete", Properties.Resources.Delete },
+                { "fc", Properties.Resources.Fc },
+                { "goto", Properties.Resources.Goto },
+                { "help", Properties.Resources.Help },
+                { "move", Properties.Resources.Move },
+                { "removedir", Properties.Resources.Removedir },
+                { "title", Properties.Resources.Title },
+                { "show", Properties.Resources.Show },
+                { "whoami", Properties.Resources.Whoami },
+                { "lang", Properties.Resources.Lang }
+            };
+
+            _commandsDescr = new Dictionary<string, string>
+            {
+                { "chat", $"{Properties.Resources.ChatDescr}\n" },
+                { "color", $"{Properties.Resources.ColorDescr}\n\tblack\tblue\n\tgreen\tred\n\twhite\tyellow\n"},
+                { "compact", $"{Properties.Resources.CompactDescr} (file1 file2 file3)\n" },
+                { "copy", $"{Properties.Resources.CopyDescr}\n" },
+                { "create", $"{Properties.Resources.CompactDescr} (file1 file2 file3)\n" },
+                { "createdir", $"{Properties.Resources.CompactDescr} (dir1 dir2 dir3)\n" },
+                { "date", $"{Properties.Resources.DateDescr}\n" },
+                { "decompact", $"{Properties.Resources.DecompactDescr}\n" },
+                { "delete", $"{Properties.Resources.CompactDescr} (file1 file2 file3)\n" },
+                { "fc", $"{Properties.Resources.FcDescr}\n" },
+                { "goto", $"{Properties.Resources.GotoDescr}\n{Properties.Resources.ChangeDrive}\n{Properties.Resources.Parrent}\n" },
+                { "move", $"{Properties.Resources.CompactDescr} (file1 file2 file3)\n" },
+                { "removedir", $"{Properties.Resources.RemovedirDescr}\n" },
+                { "show", $"{Properties.Resources.ShowDescr}\n\tD  {Properties.Resources.Directories}\n\tH  {Properties.Resources.Hidden}\n\tR  {Properties.Resources.Readonly}\n\tS  {Properties.Resources.System}\n" }
+            };
+        }
+
+        private static string GetCommandsSmallDescription(Dictionary<string, string> commands, bool name = false)
+        {
+            string s = string.Empty;
+
+            foreach (var command in commands)
             {
                 if (name)
-                    sb.Append($"CHAT\t\t");
-                sb.Append($"{Properties.Resources.Chat}\n");
-            }
-            if (commands.Contains("clear"))
-            {
-                if (name)
-                    sb.Append($"CLEAR\t\t");
-                sb.Append($"{Properties.Resources.Clear}\n");
-            }
-            if (commands.Contains("color"))
-            {
-                if (name)
-                    sb.Append($"COLOR\t\t");
-                sb.Append($"{Properties.Resources.Color}\n");
-            }
-            if (commands.Contains("compact"))
-            {
-                if (name)
-                    sb.Append($"COMPACT\t\t");
-                sb.Append($"{Properties.Resources.Compact}\n");
-            }
-            if (commands.Contains("copy"))
-            {
-                if (name)
-                    sb.Append($"COPY\t\t");
-                sb.Append($"{Properties.Resources.Copy}\n");
-            }
-            if (commands.Contains("create"))
-            {
-                if (name)
-                    sb.Append($"CREATE\t\t");
-                sb.Append($"{Properties.Resources.Create}\n");
-            }
-            if (commands.Contains("createdir"))
-            {
-                if (name)
-                    sb.Append($"CREATEDIR\t");
-                sb.Append($"{Properties.Resources.Createdir}\n");
-            }
-            if (commands.Contains("date"))
-            {
-                if (name)
-                    sb.Append($"DATE\t\t");
-                sb.Append($"{Properties.Resources.Date}\n");
-            }
-            if (commands.Contains("decompact"))
-            {
-                if (name)
-                    sb.Append($"DECOMPACT\t");
-                sb.Append($"{Properties.Resources.Decompact}\n");
-            }
-            if (commands.Contains("delete"))
-            {
-                if (name)
-                    sb.Append($"DELETE\t\t");
-                sb.Append($"{Properties.Resources.Delete}\n");
-            }
-            if (commands.Contains("exit"))
-            {
-                if (name)
-                    sb.Append($"EXIT\t\t");
-                sb.Append($"{Properties.Resources.Exit}\n");
-            }
-            if (commands.Contains("fc"))
-            {
-                if (name)
-                    sb.Append($"FC\t\t");
-                sb.Append($"{Properties.Resources.Fc}\n");
-            }
-            if (commands.Contains("goto"))
-            {
-                if (name)
-                    sb.Append($"GOTO\t\t");
-                sb.Append($"{Properties.Resources.Goto}\n");
-            }
-            if (commands.Contains("help"))
-            {
-                if (name)
-                    sb.Append($"HELP\t\t");
-                sb.Append($"{Properties.Resources.Help}\n");
-            }
-            if (commands.Contains("lang"))
-            {
-                if (name)
-                    sb.Append($"LANG\t\t");
-                sb.Append($"{Properties.Resources.Lang}\n");
-            }
-            if (commands.Contains("move"))
-            {
-                if (name)
-                    sb.Append($"MOVE\t\t");
-                sb.Append($"{Properties.Resources.Move}\n");
-            }
-            if (commands.Contains("removedir"))
-            {
-                if (name)
-                    sb.Append($"REMOVEDIR\t");
-                sb.Append($"{Properties.Resources.Removedir}\n");
-            }
-            if (commands.Contains("show"))
-            {
-                if (name)
-                    sb.Append($"SHOW\t\t");
-                sb.Append($"{Properties.Resources.Show}\n");
-            }
-            if (commands.Contains("title"))
-            {
-                if (name)
-                    sb.Append($"TITLE\t\t");
-                sb.Append($"{Properties.Resources.Title}\n");
-            }
-            if (commands.Contains("whoami"))
-            {
-                if (name)
-                    sb.Append($"WHOAMI\t\t");
-                sb.Append($"{Properties.Resources.Whoami}\n");
+                {
+                    s += $"{command.Key.ToUpper()}";
+                    s += (_bigCommands.Contains(command.Key)) ? "\t" : "\t\t";
+                }
+                s += $"{command.Value}{Environment.NewLine}";
             }
 
-            return sb.ToString();
+            return s;
         }
 
         private static string GetSyntax(string command)
@@ -159,6 +141,8 @@ namespace CommandInterpreter
             {
                 case "chat":
                     return $"CHAT [-l|local|localport]=localPort [-r|remote|remoteport]=remotePort [[-n|name]=name]";
+                case "clear":
+                    return "CLEAR";
                 case "color":
                     return $"COLOR [[-b|background]=background] [[-f|foreground]=foreground]";
                 case "compact":
@@ -181,6 +165,8 @@ namespace CommandInterpreter
                     return $"GOTO directory";
                 case "help":
                     return $"HELP [command]";
+                case "lang":
+                    return "LANG";
                 case "move":
                     return $"MOVE filename [...] dirname";
                 case "removedir":
@@ -274,57 +260,10 @@ namespace CommandInterpreter
 
         private static string GetCommandDescription(string command)
         {
-            StringBuilder sb = new StringBuilder();
-            switch (command.ToLower().Trim())
-            {
-                case "chat":
-                    sb.Append($"{Properties.Resources.ChatDescr}\n");
-                    break;
-                case "color":
-                    sb.Append($"{Properties.Resources.ColorDescr}\n");
-                    sb.Append($"\tblack\tblue\n");
-                    sb.Append($"\tgreen\tred\n");
-                    sb.Append($"\twhite\tyellow\n");
-                    break;
-                case "compact":
-                    sb.Append($"{Properties.Resources.CompactDescr} (file1 file2 file3)\n");
-                    break;
-                case "copy":
-                    sb.Append($"{Properties.Resources.CopyDescr}\n");
-                    break;
-                case "create":
-                    sb.Append($"{Properties.Resources.CompactDescr} (file1 file2 file3)\n");
-                    break;
-                case "createdir":
-                    sb.Append($"{Properties.Resources.CompactDescr} (dir1 dir2 dir3)\n");
-                    break;
-                case "date":
-                    sb.Append($"{Properties.Resources.DateDescr}\n");
-                    break;
-                case "decompact":
-                    sb.Append($"{Properties.Resources.DecompactDescr}\n");
-                    break;
-                case "delete":
-                    sb.Append($"{Properties.Resources.CompactDescr} (file1 file2 file3)\n");
-                    break;
-                case "fc":
-                    sb.Append($"{Properties.Resources.FcDescr}\n");
-                    break;
-                case "goto":
-                    sb.Append($"{Properties.Resources.GotoDescr}\n");
-                    break;
-                case "move":
-                    sb.Append($"{Properties.Resources.CompactDescr} (file1 file2 file3)\n");
-                    break;
-                case "removedir":
-                    sb.Append($"{Properties.Resources.RemovedirDescr}\n");
-                    break;
-                case "show":
-                    sb.Append($"{Properties.Resources.ShowDescr}\n");
-                    break;
-            }
+            if (_commandsDescr.Where(c => c.Key == command).Count() == 1)
+                return _commandsDescr.Where(c => c.Key == command).First().Value;
 
-            return sb.ToString();
+            return "";
         }
     }
 }
