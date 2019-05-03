@@ -60,6 +60,9 @@ namespace CommandInterpreter
                 case "help":
                     ParseHelp(args);
                     break;
+                case "lang":
+                    _commands.Lang();
+                    break;
                 case "move":
                     ParseMove(args);
                     break;
@@ -80,7 +83,7 @@ namespace CommandInterpreter
                     break;
                 default:
                     if (!string.IsNullOrEmpty(command))
-                        Console.WriteLine($"'{command}' is not recognized as an internal or external command, operable program or batch file.");
+                        Console.WriteLine($"'{command}' {Properties.Resources.IncorrectCommand}");
                     break;
             }
             return exit;
@@ -122,7 +125,7 @@ namespace CommandInterpreter
             catch (OptionException e)
             {
                 Console.WriteLine(e.Message);
-                Console.WriteLine("Try --help for more information");
+                Console.WriteLine($"{Properties.Resources.TryHelp}");
                 return;
             }
 
@@ -191,7 +194,7 @@ namespace CommandInterpreter
             else if (foreground == null && isBackground && background != null)
                 _commands.Color(backgroundColor, Console.ForegroundColor);
             else
-                Console.WriteLine("Colors is not valid");
+                Console.WriteLine($"{Properties.Resources.InvalidColor}");
             
         }
 
@@ -202,13 +205,13 @@ namespace CommandInterpreter
 
             if (args.Length == 0)
             {
-                Console.Write("Name of first file to compare: ");
+                Console.Write($"{Properties.Resources.NameFirstFile} ");
                 path1 = GetPath(new string[] { Console.ReadLine() });
             }
 
             if (args.Length == 1 || args.Length == 0)
             {
-                Console.Write("Name of second file to compare: ");
+                Console.Write($"{Properties.Resources.NameSecondFile} ");
                 path2 = GetPath(new string[] { Console.ReadLine() });
                 if (args.Length != 0)
                     path1 = GetPath(new string[] { args[0] });
@@ -222,7 +225,7 @@ namespace CommandInterpreter
 
             if (args.Length > 2)
             {
-                Console.WriteLine("Bad command line syntax");
+                Console.WriteLine($"{Properties.Resources.BadSyntax}");
                 return;
             }
 
@@ -242,7 +245,7 @@ namespace CommandInterpreter
             catch (OptionException e)
             {
                 Console.WriteLine(e.Message);
-                Console.WriteLine("Try --help for more information");
+                Console.WriteLine($"{Properties.Resources.TryHelp}");
                 return;
             }
 
@@ -259,13 +262,13 @@ namespace CommandInterpreter
         {
             if (args.Length == 1)
             {
-                Console.WriteLine("The file cannot be copied onto itself.\n\t0 file(s) copied.");
+                Console.WriteLine($"{Properties.Resources.FileCannotCopied}\n\t0 {Properties.Resources.CountCopiedFiles}");
                 return;
             }
 
             if (args.Length > 2 || args.Length < 1)
             {
-                Console.WriteLine("The syntax of the command is incorrect.");
+                Console.WriteLine($"{Properties.Resources.BadSyntax}");
                 return;
             }
 
@@ -276,7 +279,7 @@ namespace CommandInterpreter
         {
             if (args.Length == 0)
             {
-                Console.WriteLine("The syntax of the command is incorrect.");
+                Console.WriteLine($"{Properties.Resources.BadSyntax}");
                 return null;
             }
 
@@ -321,7 +324,7 @@ namespace CommandInterpreter
         private void ParseMove(string[] args)
         {
             if (args.Length != 2)
-                Console.WriteLine("The syntax of the command is incorrect.");
+                Console.WriteLine($"{Properties.Resources.BadSyntax}");
 
             List<string> paths = new List<string>();
             foreach (var path in args)
@@ -362,7 +365,7 @@ namespace CommandInterpreter
         private void ParseCreate(string[] args)
         {
             if (args.Length == 0)
-                Console.WriteLine("The syntax of the command is incorrect.");
+                Console.WriteLine($"{Properties.Resources.BadSyntax}");
 
             var paths = new List<string>();
             foreach(var arg in args)
@@ -374,7 +377,7 @@ namespace CommandInterpreter
         private void ParseCreateDir(string[] args)
         {
             if (args.Length == 0)
-                Console.WriteLine("The syntax of the command is incorrect.");
+                Console.WriteLine($"{Properties.Resources.BadSyntax}");
 
             var paths = new List<string>();
             foreach (var arg in args)
@@ -401,29 +404,29 @@ namespace CommandInterpreter
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Port is too big");
+                Console.WriteLine($"{Properties.Resources.BigPort}");
                 return;
             }
 
             if (localPort == -1)
             {
-                Console.WriteLine("Local port is required argument");
+                Console.WriteLine($"{Properties.Resources.RequiredLocalPort}");
                 return;
             }
             if (remotePort == -1)
             {
-                Console.WriteLine("Remote port is required argument");
+                Console.WriteLine($"{Properties.Resources.RequiredRemotePort}");
                 return;
             }
 
             if (localPort < 0 || localPort > 65535)
             {
-                Console.WriteLine("Local port is incorrect");
+                Console.WriteLine($"{Properties.Resources.IncorrectLocalPort}");
                 return;
             }
             if (remotePort < 0 || remotePort > 65535)
             {
-                Console.WriteLine("Remote port is incorrect");
+                Console.WriteLine($"{Properties.Resources.IncorrectRemotePort}");
                 return;
             }
 
@@ -434,13 +437,13 @@ namespace CommandInterpreter
         {
             if (args.Length == 0)
             {
-                Console.WriteLine("The syntax of the command is incorrect.");
+                Console.WriteLine($"{Properties.Resources.BadSyntax}");
                 return;
             }
 
             if (args.Length == 1)
             {
-                Console.WriteLine("Name of destination directory is required");
+                Console.WriteLine($"{Properties.Resources.RequiredDstDir}");
                 return;
             }
 
@@ -457,13 +460,13 @@ namespace CommandInterpreter
         {
             if (args.Length == 0)
             {
-                Console.WriteLine("The syntax of the command is incorrect.");
+                Console.WriteLine($"{Properties.Resources.BadSyntax}");
                 return;
             }
 
             if (args.Length == 1)
             {
-                Console.WriteLine("Name of destination directory is required");
+                Console.WriteLine($"{Properties.Resources.RequiredDstDir}");
                 return;
             }
 
@@ -483,7 +486,7 @@ namespace CommandInterpreter
 
             if (args.Length > 1)
             {
-                Console.WriteLine("The syntax of the command is incorrect.");
+                Console.WriteLine($"{Properties.Resources.BadSyntax}");
                 return;
             }
 

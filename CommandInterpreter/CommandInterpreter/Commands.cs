@@ -28,9 +28,9 @@ namespace CommandInterpreter
                 CurrentFolder = path;
             }
             else if (File.Exists(path))
-                Console.WriteLine("The directory name is invalid.");
+                Console.WriteLine($"{Properties.Resources.InvalidDirname}");
             else
-                Console.WriteLine("The system cannot find the path specified.");
+                Console.WriteLine($"{Properties.Resources.IncorrectPath}");
         }
 
         public void Color(ConsoleColor backgroundColor, ConsoleColor foregroundColor)
@@ -42,22 +42,22 @@ namespace CommandInterpreter
 
         public void FileCompare(string path1, string path2, Dictionary<string, long> options)
         {
-            Console.WriteLine($"Comparing {path1} and {path2}");
+            Console.WriteLine($"{Properties.Resources.Comparing} {path1} {Properties.Resources.And} {path2}");
             if (!File.Exists(path1))
             {
-                Console.WriteLine($"Can't find/open file: {path1}");
+                Console.WriteLine($"{Properties.Resources.IncorrectFile} {path1}");
                 return;
             }
             if (!File.Exists(path2))
             {
-                Console.WriteLine($"Can't find/open file: {path2}");
+                Console.WriteLine($"{Properties.Resources.IncorrectFile} {path2}");
                 return;
             }
 
             FileInfo file1 = new FileInfo(path1), file2 = new FileInfo(path2);
             if (file1.Length != file2.Length)
             {
-                Console.WriteLine("Files are different sizes.");
+                Console.WriteLine($"{Properties.Resources.DiffrentSizes}");
                 return;
             }
 
@@ -70,7 +70,7 @@ namespace CommandInterpreter
                     for (int i = 0; i < file1Bytes.Length; ++i)
                         if (file1Bytes[i] != file2Bytes[i])
                         {
-                            Console.WriteLine($"Compare error at OFFSET {i}");
+                            Console.WriteLine($"{Properties.Resources.ErrorCompareOffset} {i}");
                             Console.WriteLine($"file1 = {(char)file1Bytes[i]}");
                             Console.WriteLine($"file2 = {(char)file2Bytes[i]}");
                             break;
@@ -80,7 +80,7 @@ namespace CommandInterpreter
                     for (int i = 0; i < file1Bytes.Length; ++i)
                         if (file1Bytes[i] != file2Bytes[i] && options["c"] != 1)
                         {
-                            Console.WriteLine($"Compare error at OFFSET {i}");
+                            Console.WriteLine($"{Properties.Resources.ErrorCompareOffset} {i}");
                             Console.WriteLine($"file1 = {file1Bytes[i]}");
                             Console.WriteLine($"file2 = {file2Bytes[i]}");
                             break;
@@ -90,7 +90,7 @@ namespace CommandInterpreter
                     for (int i = 0; i < file1Lines.Length; ++i)
                         if (!file1Lines[i].SequenceEqual(file2Lines[i]))
                         {
-                            Console.WriteLine($"Compare error at LINE {i+1}");
+                            Console.WriteLine($"{Properties.Resources.ErrorCompareLine} {i+1}");
                             break;
                         }
 
@@ -98,7 +98,7 @@ namespace CommandInterpreter
                     for (int i = 0; i < options["n"]; ++i)
                         if (!file1Lines[i].SequenceEqual(file2Lines[i]))
                         {
-                            Console.WriteLine($"Compare error at LINE {i+1}");
+                            Console.WriteLine($"{Properties.Resources.ErrorCompareLine} {i+1}");
                             break;
                         }
 
@@ -106,14 +106,14 @@ namespace CommandInterpreter
                     for (int i = 0; i < file1Bytes.Length; ++i)
                         if (file1Bytes[i] != file2Bytes[i] && options["c"] != 1)
                         {
-                            Console.WriteLine($"Compare error at OFFSET {i}");
+                            Console.WriteLine($"{Properties.Resources.ErrorCompareOffset} {i}");
                             Console.WriteLine($"file1 = {Convert.ToString(file1Bytes[i], 16)}");
                             Console.WriteLine($"file2 = {Convert.ToString(file2Bytes[i], 16)}");
                             break;
                         }
                         else if (((char)file1Bytes[i]).ToString().ToLower() != ((char)file2Bytes[i]).ToString().ToLower() && options["c"] == 1)
                         {
-                            Console.WriteLine($"Compare error at OFFSET {i}");
+                            Console.WriteLine($"{Properties.Resources.ErrorCompareOffset} {i}");
                             Console.WriteLine($"file1 = {Convert.ToString(file1Bytes[i], 16)}");
                             Console.WriteLine($"file2 = {Convert.ToString(file2Bytes[i], 16)}");
                             break;
@@ -122,7 +122,7 @@ namespace CommandInterpreter
 
             if (File.ReadLines(path1).SequenceEqual(File.ReadLines(path2)))
             {
-                Console.WriteLine("Files compare OK.");
+                Console.WriteLine($"{Properties.Resources.OkCompare}");
                 return;
             }
         }
@@ -161,14 +161,14 @@ namespace CommandInterpreter
         {
             if (!File.Exists(path1))
             {
-                Console.WriteLine("The system cannot find the file specified.");
+                Console.WriteLine($"{Properties.Resources.IncorrectPath}");
                 return;
             }
 
             int successCopied = 0;
 
             if (!Directory.Exists(path2) && !File.Exists(path2))
-                Console.WriteLine("Access is denied.");
+                Console.WriteLine($"{Properties.Resources.AccessDenied}");
 
             if (Directory.Exists(path2))
             {
@@ -180,7 +180,7 @@ namespace CommandInterpreter
             if (File.Exists(path2))
             {
                 bool ok = true;
-                Console.Write($"Overwrite {path2}? (Yes/No): ");
+                Console.Write($"{Properties.Resources.Overwrite} {path2}? (Yes/No): ");
                 while (ok)
                     switch (Console.ReadLine().ToLower())
                     {
@@ -198,12 +198,12 @@ namespace CommandInterpreter
                     }
             }
 
-            Console.WriteLine($"\t{successCopied} file(s) copied.");
+            Console.WriteLine($"\t{successCopied} {Properties.Resources.CountCopiedFiles}");
         }
 
         public void Date()
         {
-            Console.WriteLine($"The current date is: {DateTime.Now}");
+            Console.WriteLine($"{Properties.Resources.CurrentDate} {DateTime.Now}");
         }
 
         public void Delete(List<string> paths)
@@ -216,7 +216,7 @@ namespace CommandInterpreter
                 if (Directory.Exists(path))
                 {
                     bool ok = true;
-                    Console.Write($"{path}\\*, Are you sure (Y/N)? ");
+                    Console.Write($"{path}\\*, {Properties.Resources.Sure} (Y/N)? ");
                     while (ok)
                         switch (Console.ReadLine().ToLower())
                         {
@@ -235,7 +235,7 @@ namespace CommandInterpreter
                     files.Add(path);
                 else
                 {
-                    Console.WriteLine($"Could Not Find {path}");
+                    Console.WriteLine($"{Properties.Resources.CouldNotFind} {path}");
                     return;
                 }
             }
@@ -261,13 +261,13 @@ namespace CommandInterpreter
             foreach (var path in paths) {
                 if (!Directory.Exists(path))
                 {
-                    Console.WriteLine("The directory name is invalid.");
+                    Console.WriteLine($"{Properties.Resources.InvalidDirname}");
                     continue;
                 }
 
                 if (Directory.GetFiles(path).Length + Directory.GetDirectories(path).Length > 0 && !recursive)
                 {
-                    Console.WriteLine("The directory is not empty.");
+                    Console.WriteLine($"{Properties.Resources.DirectoryNotEmpty}");
                     continue;
                 }
                 else
@@ -280,7 +280,7 @@ namespace CommandInterpreter
             foreach (var path in srcPaths)
                 if (!File.Exists(path))
                 {
-                    Console.WriteLine($"The system cannot find the file {path}");
+                    Console.WriteLine($"{Properties.Resources.IncorrectPath} {path}");
                     return;
                 }
 
@@ -289,12 +289,12 @@ namespace CommandInterpreter
             {
                 if (srcPaths.Length > 1)
                 {
-                    Console.WriteLine("The syntax of the command is incorrect.");
+                    Console.WriteLine($"{Properties.Resources.BadSyntax}");
                     return;
                 }
 
                 bool ok = true;
-                Console.Write($"Overwrite {dstPath} (Yes/No): ");
+                Console.Write($"{Properties.Resources.Overwrite} {dstPath} (Yes/No): ");
                 while (ok)
                     switch (Console.ReadLine().ToLower())
                     {
@@ -308,7 +308,7 @@ namespace CommandInterpreter
                         case "n":
                         case "no":
                             ok = false;
-                            Console.WriteLine($"\t{movedFiles} file(s) moved.");
+                            Console.WriteLine($"\t{movedFiles} {Properties.Resources.CountMovedFiles}");
                             return;
                     }
             }
@@ -320,18 +320,18 @@ namespace CommandInterpreter
                     movedFiles++;
                 }
 
-            Console.WriteLine($"\t{movedFiles} file(s) moved.");
+            Console.WriteLine($"\t{movedFiles} {Properties.Resources.CountMovedFiles}");
         }
 
         public void Show(string path, Dictionary<string, bool> options, List<string> attributes)
         {
             if (!Directory.Exists(path))
             {
-                Console.WriteLine($"Directory {path} not found.");
+                Console.WriteLine($"{path} {Properties.Resources.IncorrectPath.ToLower()}");
                 return;
             }
 
-            Console.WriteLine($"\nDirectory of {path}\n");
+            Console.WriteLine($"\n{Properties.Resources.Directory} {path}\n");
             List<string> points = new List<string>() { ".", ".." };
 
             if (!string.IsNullOrEmpty(attributes[0]) || attributes.Contains("D"))
@@ -411,7 +411,7 @@ namespace CommandInterpreter
                 }
                 catch(Exception e)
                 {
-                    Console.WriteLine($"Didn't find part of the path {path}");
+                    Console.WriteLine($"{Properties.Resources.DidNotFindPart} {path}");
                 }
             }
         }
@@ -439,7 +439,7 @@ namespace CommandInterpreter
             foreach(var path in paths)
                 if (!File.Exists(path) && !Directory.Exists(path))
                 {
-                    Console.WriteLine($"File or directory {path} does not exists");
+                    Console.WriteLine($"{path} {Properties.Resources.IncorrectPath.ToLower()}");
                     return;
                 }
 
@@ -448,7 +448,7 @@ namespace CommandInterpreter
             if (File.Exists(dstPath))
             {
                 bool ok = true;
-                Console.WriteLine($"Overwrite {dstPath} (Yes/No): ");
+                Console.WriteLine($"{Properties.Resources.Overwrite} {dstPath} (Yes/No): ");
                 while (ok)
                     switch (Console.ReadLine().ToLower())
                     {
@@ -489,13 +489,13 @@ namespace CommandInterpreter
         {
             if (!File.Exists(srcFile))
             {
-                Console.WriteLine($"File {srcFile} does not exists");
+                Console.WriteLine($"{srcFile} {Properties.Resources.IncorrectPath.ToLower()}");
                 return;
             }
 
             if (Path.GetExtension(srcFile) != ".zip")
             {
-                Console.WriteLine($"{srcFile} is not archive");
+                Console.WriteLine($"{srcFile} {Properties.Resources.NotArchive}");
                 return;
             }
 
@@ -508,8 +508,16 @@ namespace CommandInterpreter
             }
             catch
             {
-                Console.WriteLine("File yet exists in this directory");
+                Console.WriteLine($"{Properties.Resources.YetExists}");
             }
+        }
+
+        public void Lang()
+        {
+            if (Thread.CurrentThread.CurrentUICulture == System.Globalization.CultureInfo.GetCultureInfo("ru-RU"))
+                System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
+            else
+                System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("ru-RU");
         }
     }
 }

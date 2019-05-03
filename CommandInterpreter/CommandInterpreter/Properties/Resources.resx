@@ -1,0 +1,417 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessDenied" xml:space="preserve">
+    <value>Access is denied.</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>and</value>
+  </data>
+  <data name="BadSyntax" xml:space="preserve">
+    <value>The syntax of the command is incorrect.</value>
+  </data>
+  <data name="BigPort" xml:space="preserve">
+    <value>Port is too big.</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Creates UDP-chat for your secure communication</value>
+  </data>
+  <data name="ChatLocalport" xml:space="preserve">
+    <value>Port from which messages are sent</value>
+  </data>
+  <data name="ChatName" xml:space="preserve">
+    <value>Your name in the chat</value>
+  </data>
+  <data name="ChatRemoteport" xml:space="preserve">
+    <value>Port on which messages come</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clears the screen</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Sets the default console foreground and background colors</value>
+  </data>
+  <data name="ColorBackground" xml:space="preserve">
+    <value>Specifies color of console background</value>
+  </data>
+  <data name="ColorForeground" xml:space="preserve">
+    <value>Specifies color of console foreground</value>
+  </data>
+  <data name="Compact" xml:space="preserve">
+    <value>Creates .zip archive of files</value>
+  </data>
+  <data name="CompactDirectory" xml:space="preserve">
+    <value>Path to the directory which will be the archive</value>
+  </data>
+  <data name="CompactFilename" xml:space="preserve">
+    <value>Paths to files to be added to the archive</value>
+  </data>
+  <data name="Comparing" xml:space="preserve">
+    <value>Comparing</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copies one file to another location</value>
+  </data>
+  <data name="CopyDstFilename" xml:space="preserve">
+    <value>Path to the new file</value>
+  </data>
+  <data name="CopySourceFilename" xml:space="preserve">
+    <value>Path to file to be copied</value>
+  </data>
+  <data name="CouldNotFind" xml:space="preserve">
+    <value>Could Not Find</value>
+  </data>
+  <data name="CountCopiedFiles" xml:space="preserve">
+    <value>file(s) copied.</value>
+  </data>
+  <data name="CountMovedFiles" xml:space="preserve">
+    <value>file(s) moved.</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Creates files</value>
+  </data>
+  <data name="Createdir" xml:space="preserve">
+    <value>Creates directories</value>
+  </data>
+  <data name="CreateDirname" xml:space="preserve">
+    <value>Paths to directories to be added</value>
+  </data>
+  <data name="CreateFilename" xml:space="preserve">
+    <value>Paths to new files to be added</value>
+  </data>
+  <data name="CurrentDate" xml:space="preserve">
+    <value>The current date is:</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Displays the date</value>
+  </data>
+  <data name="Decompact" xml:space="preserve">
+    <value>Extract .zip file to directory</value>
+  </data>
+  <data name="DecompactDirname" xml:space="preserve">
+    <value>Path to the directory in which extract file</value>
+  </data>
+  <data name="DecompactFilename" xml:space="preserve">
+    <value>Path to .zip file to be extarct</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Deletes one or more files</value>
+  </data>
+  <data name="DeleteFilename" xml:space="preserve">
+    <value>Paths to files to be removed</value>
+  </data>
+  <data name="DidNotFindPart" xml:space="preserve">
+    <value>Didn't find part of the path:</value>
+  </data>
+  <data name="DiffrentSizes" xml:space="preserve">
+    <value>Files are different sizes.</value>
+  </data>
+  <data name="Directory" xml:space="preserve">
+    <value>Directory of</value>
+  </data>
+  <data name="DirectoryNotEmpty" xml:space="preserve">
+    <value>The directory is not empty.</value>
+  </data>
+  <data name="ErrorCompareLine" xml:space="preserve">
+    <value>Compare error at LINE</value>
+  </data>
+  <data name="ErrorCompareOffset" xml:space="preserve">
+    <value>Compare error at OFFSET</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Quits the CommandInterpreter.EXE program (or chat)</value>
+  </data>
+  <data name="Fc" xml:space="preserve">
+    <value>Compares the contents of two files</value>
+  </data>
+  <data name="FcAscii" xml:space="preserve">
+    <value>Displays differences in ASCII characters</value>
+  </data>
+  <data name="FcCase" xml:space="preserve">
+    <value>Disregards case of ASCII letters when comparing files</value>
+  </data>
+  <data name="FcDecimal" xml:space="preserve">
+    <value>Displays differences in decimal format</value>
+  </data>
+  <data name="FcFirst" xml:space="preserve">
+    <value>Specifies location and name of first file to compare</value>
+  </data>
+  <data name="FcLine" xml:space="preserve">
+    <value>Displays line numbers for differences</value>
+  </data>
+  <data name="FcNumber" xml:space="preserve">
+    <value>Compares only the first specified number of lines in each file</value>
+  </data>
+  <data name="FcSecond" xml:space="preserve">
+    <value>Specifies location and name of second file to compare</value>
+  </data>
+  <data name="FileCannotCopied" xml:space="preserve">
+    <value>The file cannot be copied onto itself.</value>
+  </data>
+  <data name="Goto" xml:space="preserve">
+    <value>Displays the name of or changes the current directory</value>
+  </data>
+  <data name="GotoDirectory" xml:space="preserve">
+    <value>Canges current directory</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Provides Help information for commands</value>
+  </data>
+  <data name="HelpCommand" xml:space="preserve">
+    <value>Displays help information on that command</value>
+  </data>
+  <data name="IncorrectCommand" xml:space="preserve">
+    <value>is not recognized as an internal or external command.</value>
+  </data>
+  <data name="IncorrectFile" xml:space="preserve">
+    <value>Can't find/open file:</value>
+  </data>
+  <data name="IncorrectLocalPort" xml:space="preserve">
+    <value>Local port is incorrect.</value>
+  </data>
+  <data name="IncorrectPath" xml:space="preserve">
+    <value>The system cannot find the path specified.</value>
+  </data>
+  <data name="IncorrectRemotePort" xml:space="preserve">
+    <value>Remote port is incorrect.</value>
+  </data>
+  <data name="InvalidColor" xml:space="preserve">
+    <value>Colors is not valid</value>
+  </data>
+  <data name="InvalidDirname" xml:space="preserve">
+    <value>The directory name is invalid.</value>
+  </data>
+  <data name="Join" xml:space="preserve">
+    <value>joined chat.</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>lefted chat</value>
+  </data>
+  <data name="Move" xml:space="preserve">
+    <value>Moves one or more files from one directory to another directory</value>
+  </data>
+  <data name="MoveDirname" xml:space="preserve">
+    <value>Path to the directory in which move files</value>
+  </data>
+  <data name="MoveFilename" xml:space="preserve">
+    <value>Paths to files to be moved</value>
+  </data>
+  <data name="NameFirstFile" xml:space="preserve">
+    <value>Name of first file to compare: </value>
+  </data>
+  <data name="NameSecondFile" xml:space="preserve">
+    <value>Name of second file to compare: </value>
+  </data>
+  <data name="NotArchive" xml:space="preserve">
+    <value>is not archive.</value>
+  </data>
+  <data name="OkCompare" xml:space="preserve">
+    <value>Files compare OK.</value>
+  </data>
+  <data name="Overwrite" xml:space="preserve">
+    <value>Overwrite</value>
+  </data>
+  <data name="Removedir" xml:space="preserve">
+    <value>Removes a directory</value>
+  </data>
+  <data name="RemoveDirname" xml:space="preserve">
+    <value>Path to the removed directory</value>
+  </data>
+  <data name="RemovedirRecursive" xml:space="preserve">
+    <value>Removes all directories and files in the specified directory in addition to the directory itself</value>
+  </data>
+  <data name="RequiredDstDir" xml:space="preserve">
+    <value>Name of destination directory is required.</value>
+  </data>
+  <data name="RequiredLocalPort" xml:space="preserve">
+    <value>Local port is required argument.</value>
+  </data>
+  <data name="RequiredRemotePort" xml:space="preserve">
+    <value>Remote port is required argument</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Displays a list of files and subdirectories in a directory</value>
+  </data>
+  <data name="ShowAttributes" xml:space="preserve">
+    <value>Displays files with specified attributes</value>
+  </data>
+  <data name="ShowCreated" xml:space="preserve">
+    <value>Displays date of file and directories created</value>
+  </data>
+  <data name="ShowDirname" xml:space="preserve">
+    <value>Path to the directory</value>
+  </data>
+  <data name="ShowSize" xml:space="preserve">
+    <value>Displays files' sizes</value>
+  </data>
+  <data name="Sure" xml:space="preserve">
+    <value>Are you sure</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Sets the window title for a CommandInterpreter.EXE session</value>
+  </data>
+  <data name="TitleTitle" xml:space="preserve">
+    <value>Specifies the title for the command prompt window</value>
+  </data>
+  <data name="TryHelp" xml:space="preserve">
+    <value>Try HELP for more information.</value>
+  </data>
+  <data name="Whoami" xml:space="preserve">
+    <value>Displays current user's name</value>
+  </data>
+  <data name="YetExists" xml:space="preserve">
+    <value>File yet exists in this directory.</value>
+  </data>
+  <data name="ChatDescr" xml:space="preserve">
+    <value>Local chat created using a UDP connection. Join yourself and call your friends.</value>
+  </data>
+  <data name="ColorDescr" xml:space="preserve">
+    <value>Console support colors:</value>
+  </data>
+  <data name="CompactDescr" xml:space="preserve">
+    <value>All parameters is required. For multiple files/directories used syntax:</value>
+  </data>
+  <data name="CopyDescr" xml:space="preserve">
+    <value>All parameters is required</value>
+  </data>
+  <data name="DateDescr" xml:space="preserve">
+    <value>Type DATE to display the current date</value>
+  </data>
+  <data name="DecompactDescr" xml:space="preserve">
+    <value>All parameters is required. sourceFilename must ends with '.zip'</value>
+  </data>
+  <data name="FcDescr" xml:space="preserve">
+    <value>To compare sets of files, use wildcards in filename1 and filename2 parameters. Files must be in text-format.</value>
+  </data>
+  <data name="GotoDescr" xml:space="preserve">
+    <value>Type GOTO without parameters to display the current drive and directory.\nUse the /D switch to change current drive in addition to changing current directory for a drive.\n    ..    Specifies that you want to change to the parent directory.</value>
+  </data>
+  <data name="RemovedirDescr" xml:space="preserve">
+    <value>If directory is not empty and you want to delete it use 'recursive'-deleting.</value>
+  </data>
+  <data name="ShowDescr" xml:space="preserve">
+    <value>You can use attributes (attr1,attr2,attr3)\n\tD  Directories\n\tH  Hidden files and directories\n\tR  Readonly files and directories\n\tS  System files and directories\n</value>
+  </data>
+  <data name="ForMoreInfo" xml:space="preserve">
+    <value>For more information on a specific command, type HELP command-name</value>
+  </data>
+  <data name="Lang" xml:space="preserve">
+    <value>Changes language of your console to Russian or English</value>
+  </data>
+</root>

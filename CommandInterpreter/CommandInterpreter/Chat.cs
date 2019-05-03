@@ -28,7 +28,7 @@ namespace CommandInterpreter
         {
             using (UdpClient client = new UdpClient())
             {
-                Send($"{_name} joined chat", client);
+                Send($"{_name} {Properties.Resources.Join}", client);
 
                 bool process = true;
                 while (process)
@@ -36,7 +36,7 @@ namespace CommandInterpreter
                     var message = Console.ReadLine();
                     if (message == "exit")
                     {
-                        Send($"{_name} lefted chat", client);
+                        Send($"{_name} {Properties.Resources.Left}", client);
                         IsReceive = false;
                         process = false;
                         return;

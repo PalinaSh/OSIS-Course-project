@@ -13,6 +13,7 @@ namespace CommandInterpreter
             Console.OutputEncoding = Encoding.UTF8;
             Console.InputEncoding = Encoding.GetEncoding(1251);
             Console.Title = "Pretty command";
+            System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
 
             bool exit = false;
             var commands = new Commands(Environment.CurrentDirectory);
