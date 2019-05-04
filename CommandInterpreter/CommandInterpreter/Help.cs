@@ -160,7 +160,7 @@ namespace CommandInterpreter
                 case "delete":
                     return $"DELETE filename [...]";
                 case "fc":
-                    return $"FC [-a|ascii] [-l|lines] [[-n|number]=number] [-c|case] [-d|decimal] filename1 filename2";
+                    return $"FC filename1 filename2 [-a|ascii] [-l|lines] [[-n|number]=number] [-c|case] [-d|decimal]";
                 case "goto":
                     return $"GOTO directory";
                 case "help":

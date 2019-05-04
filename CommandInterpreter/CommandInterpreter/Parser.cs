@@ -217,16 +217,10 @@ namespace CommandInterpreter
                     path1 = GetPath(new string[] { args[0] });
             }
 
-            if (args.Length == 2)
+            if (args.Length >= 2)
             {
                 path1 = GetPath(new string[] { args[0] });
                 path2 = GetPath(new string[] { args[1] });
-            }
-
-            if (args.Length > 2)
-            {
-                Console.WriteLine($"{Properties.Resources.BadSyntax}");
-                return;
             }
 
             var p = new OptionSet()

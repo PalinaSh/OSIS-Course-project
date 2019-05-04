@@ -11,8 +11,8 @@ namespace CommandInterpreter
 {
     class Commands
     {
-        public string CurrentFolder { get; private set; }
         private string[] _textExtensions = { ".txt", ".pdf", ".doc", ".docx" };
+        public string CurrentFolder { get; private set; }
 
         public Commands(string currentFolder)
         {
@@ -43,6 +43,7 @@ namespace CommandInterpreter
         public void FileCompare(string path1, string path2, Dictionary<string, long> options)
         {
             Console.WriteLine($"{Properties.Resources.Comparing} {path1} {Properties.Resources.And} {path2}");
+
             if (!File.Exists(path1))
             {
                 Console.WriteLine($"{Properties.Resources.IncorrectFile} {path1}");
@@ -80,42 +81,34 @@ namespace CommandInterpreter
                     for (int i = 0; i < file1Bytes.Length; ++i)
                         if (file1Bytes[i] != file2Bytes[i] && options["c"] != 1)
                         {
-                            Console.WriteLine($"{Properties.Resources.ErrorCompareOffset} {i}");
-                            Console.WriteLine($"file1 = {file1Bytes[i]}");
-                            Console.WriteLine($"file2 = {file2Bytes[i]}");
+                            DisplayOffset(file1Bytes[i], file2Bytes[i], i);
                             break;
                         }
 
-                if (options["l"] == 1)
-                    for (int i = 0; i < file1Lines.Length; ++i)
-                        if (!file1Lines[i].SequenceEqual(file2Lines[i]))
-                        {
-                            Console.WriteLine($"{Properties.Resources.ErrorCompareLine} {i+1}");
-                            break;
-                        }
+                if (options["l"] == 1 || options["n"] != -1)
+                {
+                    long n = file1Lines.Length;
+                    if (options["n"] != -1 && options["n"] < n)
+                        n = options["n"];
 
-                if (options["n"] != -1)
-                    for (int i = 0; i < options["n"]; ++i)
+                    for (int i = 0; i < n; ++i)
                         if (!file1Lines[i].SequenceEqual(file2Lines[i]))
                         {
-                            Console.WriteLine($"{Properties.Resources.ErrorCompareLine} {i+1}");
+                            Console.WriteLine($"{Properties.Resources.ErrorCompareLine} {i + 1}");
                             break;
                         }
+                }
 
                 if (options["a"] != 1)
                     for (int i = 0; i < file1Bytes.Length; ++i)
                         if (file1Bytes[i] != file2Bytes[i] && options["c"] != 1)
                         {
-                            Console.WriteLine($"{Properties.Resources.ErrorCompareOffset} {i}");
-                            Console.WriteLine($"file1 = {Convert.ToString(file1Bytes[i], 16)}");
-                            Console.WriteLine($"file2 = {Convert.ToString(file2Bytes[i], 16)}");
+                            DisplayOffset(file1Bytes[i], file2Bytes[i], i, true);
                             break;
                         }
                         else if (((char)file1Bytes[i]).ToString().ToLower() != ((char)file2Bytes[i]).ToString().ToLower() && options["c"] == 1)
                         {
-                            Console.WriteLine($"{Properties.Resources.ErrorCompareOffset} {i}");
-                            Console.WriteLine($"file1 = {Convert.ToString(file1Bytes[i], 16)}");
-                            Console.WriteLine($"file2 = {Convert.ToString(file2Bytes[i], 16)}");
+                            DisplayOffset(file1Bytes[i], file2Bytes[i], i, true);
                             break;
                         }
             }
@@ -125,26 +118,6 @@ namespace CommandInterpreter
                 Console.WriteLine($"{Properties.Resources.OkCompare}");
                 return;
             }
-        }
-
-        private byte[] ReadBytesFromFile(string path)
-        {
-            byte[] fileBytes;
-            using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
-            {
-                fileBytes = new byte[file.Length];
-                long numBytesToRead = file.Length;
-                int numBytesRead = 0;
-                while (numBytesToRead > 0)
-                {
-                    int n = file.Read(fileBytes, numBytesRead, (int)numBytesToRead);
-                    if (n == 0)
-                        break;
-                    numBytesToRead -= n;
-                    numBytesRead += n;
-                }
-            }
-            return fileBytes;
         }
 
         public void Clear()
@@ -520,6 +493,36 @@ namespace CommandInterpreter
                 System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("ru-RU");
 
             Help.UpdateDictionary();
+        }
+
+        private void DisplayOffset(byte file1, byte file2, int i, bool toHex = false)
+        {
+            var file1Bytes = (toHex) ? Convert.ToString(file1, 16) : file1.ToString();
+            var file2Bytes = (toHex) ? Convert.ToString(file2, 16) : file2.ToString();
+
+            Console.WriteLine($"{Properties.Resources.ErrorCompareOffset} {i}");
+            Console.WriteLine($"file1 = {file1Bytes}");
+            Console.WriteLine($"file2 = {file2Bytes}");
+        }
+
+        private byte[] ReadBytesFromFile(string path)
+        {
+            byte[] fileBytes;
+            using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                fileBytes = new byte[file.Length];
+                long numBytesToRead = file.Length;
+                int numBytesRead = 0;
+                while (numBytesToRead > 0)
+                {
+                    int n = file.Read(fileBytes, numBytesRead, (int)numBytesToRead);
+                    if (n == 0)
+                        break;
+                    numBytesToRead -= n;
+                    numBytesRead += n;
+                }
+            }
+            return fileBytes;
         }
     }
 }
