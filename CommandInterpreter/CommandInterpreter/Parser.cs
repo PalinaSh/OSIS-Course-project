@@ -11,6 +11,7 @@ namespace CommandInterpreter
     class Parser
     {
         private Commands _commands;
+
         public Parser(Commands commands)
         {
             _commands = commands;
@@ -301,7 +302,17 @@ namespace CommandInterpreter
             {
                 {"r|recursive", v => recursive = v != null },
             };
-            p.Parse(new List<string> { args[0] });
+
+            try
+            { 
+                p.Parse(new List<string> { args[0] });
+            }
+            catch (OptionException e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine($"{Properties.Resources.TryHelp}");
+                return;
+            }
 
             var paths = new List<string>();
             if (!recursive)
@@ -349,9 +360,19 @@ namespace CommandInterpreter
                 { "c|create|created", v => options["c"] = v != null },
                 { "a|attributes=", v => attributes = v }
             };
-            p.Parse(args);
 
-            List<string> attr = attributes.Split('&').ToList();
+            try
+            { 
+                p.Parse(args);
+            }
+            catch (OptionException e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine($"{Properties.Resources.TryHelp}");
+                return;
+            }
+
+            List<string> attr = attributes.Split(',').ToList();
 
             _commands.Show(path, options, attr);
         }
@@ -395,6 +416,12 @@ namespace CommandInterpreter
             try
             {
                 p.Parse(args);
+            }
+            catch (OptionException e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine($"{Properties.Resources.TryHelp}");
+                return;
             }
             catch (Exception e)
             {

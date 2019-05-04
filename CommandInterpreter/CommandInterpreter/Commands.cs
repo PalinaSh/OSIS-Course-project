@@ -219,16 +219,6 @@ namespace CommandInterpreter
                 RemoveDirectory(directory);
         }
 
-        private void RemoveDirectory(string directory)
-        {
-            DirectoryInfo dir = new DirectoryInfo(directory);
-            foreach (FileInfo fileInfo in dir.GetFiles())
-                fileInfo.Delete();
-            foreach (DirectoryInfo directoryInfo in dir.GetDirectories())
-                directoryInfo.Delete(true);
-            dir.Delete();
-        }
-
         public void RemoveDir(List<string> paths, bool recursive)
         {
             foreach (var path in paths) {
@@ -306,8 +296,9 @@ namespace CommandInterpreter
 
             Console.WriteLine($"\n{Properties.Resources.Directory} {path}\n");
             List<string> points = new List<string>() { ".", ".." };
+            int filesCount = 0, directoriesCount = 0;
 
-            if (!string.IsNullOrEmpty(attributes[0]) || attributes.Contains("D"))
+            if (string.IsNullOrEmpty(attributes[0]) || attributes.Contains("D"))
                 foreach (var point in points)
                 {
                     if (options["c"])
@@ -316,10 +307,10 @@ namespace CommandInterpreter
                     if (options["s"])
                         Console.Write("\t");
                     Console.WriteLine(point);
+                    directoriesCount++;
                 }
 
             var files = Directory.GetFileSystemEntries(path);
-            int filesCount = 0, directoriesCount = 2;
             foreach (var file in files)
             {
                 FileInfo f = new FileInfo(file);
@@ -523,6 +514,16 @@ namespace CommandInterpreter
                 }
             }
             return fileBytes;
+        }
+
+        private void RemoveDirectory(string directory)
+        {
+            DirectoryInfo dir = new DirectoryInfo(directory);
+            foreach (FileInfo fileInfo in dir.GetFiles())
+                fileInfo.Delete();
+            foreach (DirectoryInfo directoryInfo in dir.GetDirectories())
+                directoryInfo.Delete(true);
+            dir.Delete();
         }
     }
 }
