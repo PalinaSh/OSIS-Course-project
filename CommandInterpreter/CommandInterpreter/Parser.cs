@@ -99,10 +99,10 @@ namespace CommandInterpreter
         private string GetPath(string[] args)
         {
             string path;
+            if (args.Length == 0)
+                return _commands.CurrentFolder;
             if (string.IsNullOrEmpty(args[0]))
                 return "";
-            if (args.Length == 0)
-                path = _commands.CurrentFolder;
             else if (args[0].Contains(":") || args[0][0] == '\\')
                 path = string.Join(" ", args);
             else
@@ -112,6 +112,9 @@ namespace CommandInterpreter
 
         private void ParseColor(string[] args)
         {
+            if (args.Length == 0)
+                return;
+
             string background = null, foreground = null;
             var p = new OptionSet()
             {
@@ -297,6 +300,12 @@ namespace CommandInterpreter
 
         private void ParseRemoveDir(string[] args)
         {
+            if (args.Length == 0)
+            {
+                Console.WriteLine($"{Properties.Resources.BadSyntax}");
+                return;
+            }
+
             bool recursive = false;
             var p = new OptionSet()
             {
@@ -328,8 +337,11 @@ namespace CommandInterpreter
 
         private void ParseMove(string[] args)
         {
-            if (args.Length != 2)
+            if (args.Length < 2)
+            {
                 Console.WriteLine($"{Properties.Resources.BadSyntax}");
+                return;
+            }
 
             List<string> paths = new List<string>();
             foreach (var path in args)
